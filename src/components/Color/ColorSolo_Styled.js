@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Immutable from 'immutable';
 
-export const Div_ColorOne = styled.div
+export const Div_ColorSolo = styled.div
 `
   width: 100%;
   max-width: 500px;
@@ -17,8 +17,24 @@ export const Div_ColorOne = styled.div
   
 	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
 	 
+	 
 	}
   
   
 `;
 
+
+
+export const Div_ItemCurrent = styled.div
+` 
+  height: 100%;
+  background-color: ${props =>
+    `hsla(
+      ${props.colorMain.getIn(['hsl', 'h'])}, 
+      ${props.colorMain.getIn(['hsl', 's'])}%, 
+      ${props.colorMain.getIn(['hsl', 'l'])}%,
+      ${props.colorMain.getIn(['opacity'])}
+      )
+    `
+  };
+`

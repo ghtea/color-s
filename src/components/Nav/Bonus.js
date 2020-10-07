@@ -20,7 +20,7 @@ const Bonus = ({
 	
 	}) => {
 	
-	const readyUser = useSelector( state => state.basic.getIn(['ready', 'user']), [] );
+	const readyUser = useSelector( state => state.status.getIn(['ready', 'user']), [] );
 	const user = useSelector( state => state.auth.getIn(['user']), [] );
   //const dispatch = useDispatch();
 	

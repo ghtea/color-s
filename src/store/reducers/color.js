@@ -13,7 +13,7 @@ import colorDefault from './color/colorDefault';
 const stateInitial = fromJS({
   
   
-  one: {
+  solo: {
     itemCurrent: {
       _id: 'default',
       main: colorDefault

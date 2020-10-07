@@ -13,21 +13,24 @@ import * as config from '../../config';
 
 //import Card from './BoardCard/Card';
 import {
-  Div_ColorOne
-} from './ColorOne_Styled';
+  Div_ColorSolo,
+  Div_ItemCurrent
+} from './ColorSolo_Styled';
 
 
-function ColorOne({
+function ColorSolo({
   
 }) {
-  /*
-  const listCard = useSelector( state => state.card.getIn(['listCard']), [] );
   
+  const colorMain = useSelector( state => state.color.getIn(['solo', 'itemCurrent', 'main']), [] );
+  
+  console.log(colorMain.toJS())
+  /*
   const lengthListCard = useMemo( ()=> listCard.size , [listCard] );
   const listCardZero = useMemo( ()=> Array(lengthListCard).fill(0) , [listCard, lengthListCard] );
   console.log(listCard.toJS())
   
-  const loadingListQuiz = useSelector( state => state.basic.getIn(['loading', 'listQuiz']), [] );
+  const loadingListQuiz = useSelector( state => state.colorMain.getIn(['loading', 'listQuiz']), [] );
   */
   /*
   const listCardOthers = useMemo(()=>{
@@ -38,7 +41,7 @@ function ColorOne({
   
   const dispatch = useDispatch();
   
-  //const [roleModifying, setRoleModifying] = useState('background');
+  //const [setRoleModifying] = useState('background');
   
   useEffect(()=>{
     
@@ -57,19 +60,58 @@ function ColorOne({
   */
   
   
+  const textHsl = useMemo(()=>{
+    // 소수점 이용 가능 => 좀더 자세한 설정
+    const h = colorMain.getIn(['hsl', 'h']);
+    const s = colorMain.getIn(['hsl', 's']);
+    const l = colorMain.getIn(['hsl', 'l']);
+    
+    return `hsl(${h}, ${s}%, ${l}%)`
+  }, [colorMain]);
+  
+  const textHsla = useMemo(()=>{
+    // 소수점 이용 가능 => 좀더 자세한 설정
+    const h = colorMain.getIn(['hsl', 'h']);
+    const s = colorMain.getIn(['hsl', 's']);
+    const l = colorMain.getIn(['hsl', 'l']);
+    const opacity = colorMain.getIn(['opacity']);
+    
+    return `hsla(${h}, ${s}%, ${l}%, ${opacity})`
+  }, [colorMain]);
+  
+  
+  const textRgb = useMemo(()=>{
+    const r = colorMain.getIn(['rgb', 'r']);
+    const g = colorMain.getIn(['rgb', 'g']);
+    const b = colorMain.getIn(['rgb', 'b']);
+    
+    return `rgb(${r}, ${g}, ${b})`
+  }, [colorMain])
+  
+  const textRgba = useMemo(()=>{
+    const r = colorMain.getIn(['rgb', 'r']);
+    const g = colorMain.getIn(['rgb', 'g']);
+    const b = colorMain.getIn(['rgb', 'b']);
+    const opacity = colorMain.getIn(['opacity']);
+    
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+  }, [colorMain])
+  
+  
   return (
     
-    <Div_ColorOne>
+    <Div_ColorSolo>
       
-      color one
+      <Div_ItemCurrent
+        colorMain={colorMain}
+      > solo </Div_ItemCurrent>
       
-    </Div_ColorOne>
+    </Div_ColorSolo>
     
   )
 }
 
 /*
-
           (<>
           {!showingReward?
             <CardQuiz
@@ -93,4 +135,4 @@ function ColorOne({
 */
 
 
-export default ColorOne;
+export default ColorSolo;

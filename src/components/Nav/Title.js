@@ -37,7 +37,7 @@ const Title = ({
   	onClick={(event)=>onClick_Title(event, '/')}
   >
   	
-  	<Div_TitleText> Card of Quiz </Div_TitleText>
+  	<Div_TitleText> Color S </Div_TitleText>
 		
 	</Div_Title>
 	

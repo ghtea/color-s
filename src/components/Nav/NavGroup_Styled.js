@@ -44,11 +44,8 @@ export const Div_NavItem = styled.div`
   
   position: relative;
   
-  &:nth-child(n+2){ margin-left: 8px; }
+  &:nth-child(n+2){ margin-left: 12px; }
   
-  
- 
-	
 	
 `
 
@@ -60,9 +57,13 @@ export const Div_NavItemIcon = styled.div`
 export const Div_NavItemTitle = styled.div`
   width: auto;
 	heigth: auto;
-  	
+  display: none;
+  
   @media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-    display: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 `
 

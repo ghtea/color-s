@@ -1,5 +1,5 @@
-export const URL_FRONT = 'https://coq.avantwing.com';
-export const URL_BACK = 'https://coq_back.avantwing.com';
+export const URL_FRONT = 'https://cs.avantwing.com';
+export const URL_BACK = 'https://cs_back.avantwing.com';
 
 export const STATUS = "published";
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import * as config from '../config';
 
-import ColorOne from "../components/Color/ColorOne"
+import ColorSolo from "../components/Color/ColorSolo"
 //import Heroes from "../components/Player/Heroes"
 
 import {useSelector, useDispatch} from "react-redux";
@@ -13,26 +13,43 @@ import Immutable from 'immutable';
 
 
 
+import {
+  Div_Color,
+  Button_EditColor, Button_More
+} from './Color_Styled'
 
 
 
 
 
-const Korean = ({
+const Color = ({
   
 }) => {
   
   
    return (
-
+  
+  <Div_Color>
+    
+    <div> 
+      <Button_EditColor>
+        edit
+      </Button_EditColor>
+      
+      <Button_More>
+        more
+      </Button_More>
+    </div>
+    
     <Switch>
     
-      <Route path="/color/one" component={ColorOne} />
-      <Route path="/color/duo" component={ColorOne} />
-      <Route path="/color/series" component={ColorOne} />
+      <Route path="/color/solo" component={ColorSolo} />
+      <Route path="/color/duo" component={ColorSolo} />
+      <Route path="/color/series" component={ColorSolo} />
       
     </Switch>
     
+  </Div_Color>
     )
 }
   
@@ -42,5 +59,5 @@ const Korean = ({
 
 
 
-export default Korean;
+export default Color;
 

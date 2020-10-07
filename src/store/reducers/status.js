@@ -10,16 +10,23 @@ import * as status from '../actions/status';
 
 
 const stateInitial = fromJS({
+  
   loading: {
     user: false
     
   },
+  
   ready: {
     user: false
   },
-  viewing: {
-    model: 'one'
+  
+  current: {
+    color: {
+      model: 'one',
+      mode: 'editing' // edit, more, 
+    }
   }
+  
 });
 
 

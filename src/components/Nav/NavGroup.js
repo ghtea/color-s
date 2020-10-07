@@ -44,14 +44,14 @@ const NavGroup = ({
 		<Div_NavGroup>
 			
 			<Div_NavItem
-				onClick = {(event)=>onClick_NavItem(event, '/color/one')}
+				onClick = {(event)=>onClick_NavItem(event, '/color/solo')}
 			>
 				<Div_NavItemIcon> 
 					1 
 				</Div_NavItemIcon>
 				
 				<Div_NavItemTitle> 
-					Color One 
+					Color Solo 
 				</Div_NavItemTitle>
 			</Div_NavItem>
 			
