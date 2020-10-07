@@ -1,24 +1,26 @@
 
 
-## `Card of Quiz`
+## `Color S`
 
-[address](https://coq_dev.nextwing.me)
+[address](https://cs_dev.nextwing.me)
 
 
 ### intruduction
 
-Get Card and solve `quizes` to get rewards !<br />
+`Edit, Convert` Colors
+Find best `Duo` combition of Colors
+Make `Series` of Color
 
 
-### what I've used (`especially studied`)
+### what I've used
 
 
-skill |  my goal  | my confidence after this project 
+skill |  level (here)  | memo
 ---|:---:|---:
-React.js  | useMemo, useSelctor 등 hooks 이용 증가, 폴더 구조 분산
-Styled Component | 컴포넌트 파일과 분리 | 능숙하게 사용 가능
-Redux | useSelector 등 사용 | 원만하게 사용 가능
-Redux Saga | 기초 공부 | 기초 단계
+React.js  | good | useMemo, useSelctor 등 hooks 이용 증가, 폴더 구조 분산
+Styled Component | good | 
+Redux | good | 
+Redux Saga | familiar | 기초 단계
 
 
 ### helps

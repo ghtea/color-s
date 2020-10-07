@@ -22,7 +22,8 @@ const stateInitial = fromJS({
   
   current: {
     color: {
-      model: 'one',
+      model: 'solo',   // solo, duo, series
+      position: '',    //  main, sub, 00, 10, 20, ..., 100
       mode: 'editing' // edit, more, 
     }
   }

@@ -14,7 +14,7 @@ export const return_REPLACE_COLOR = (payload) => {
 //
 export const SPREAD_HSL = 'SPREAD_HSL';
 export const SPREAD_RGB = 'SPREAD_RGB';
-export const SPREAD_TEXT = 'SPREAD_Text';
+export const SPREAD_TEXT = 'SPREAD_TEXT';
 
 export const return_SPREAD_HSL = (payload) => {
     return {

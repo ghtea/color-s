@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 
 import * as config from '../../../config';
 
-import * as color from "../../actions/color";
+import * as actionsColor from "../../actions/color";
 
 import convertRgbToHsl from './spreadRgb/convertRgbToHsl'
 import convertHslToRgb from './spreadHsl/convertHslToRgb'
@@ -13,8 +13,12 @@ import convertHslToRgb from './spreadHsl/convertHslToRgb'
 function* spreadText(action) {
   
   const text = action.payload.text;
-  const whichModifying = action.payload.whichModifying;
-  const roleModifying = action.payload.roleModifying;
+  
+  const modelCurrent = yield select( state => state.status.getIn(['current', 'color', 'model']), [] );
+  const positionCurrent = yield select( state => state.status.getIn(['current', 'color', 'position']), [] );
+  
+  const colorCurrent = yield select( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
+  
   console.log(text);
   /*
   const numberR = colorConverting.getIn(['rgb', 'r']);
@@ -43,13 +47,13 @@ function* spreadText(action) {
     const numberS = Math.round(parseFloat(result[2])*10)/10;
     const numberL = Math.round(parseFloat(result[3])*10)/10;
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'hsl'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'hsl'],
       replacement: {h: numberH, s: numberS, l: numberL}
   	}) );
-  	yield put(color.return_SPREAD_HSL({whichModifying, roleModifying})); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put( actionsColor.return_SPREAD_HSL() ); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: 1
   	}) );
   }
@@ -61,13 +65,13 @@ function* spreadText(action) {
     const numberL = Math.round(parseFloat(result[3])*10)/10;
     const numberA = Math.round(parseFloat(result[4])*100)/100;
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'hsl'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'hsl'],
       replacement: {h: numberH, s: numberS, l: numberL}
   	}) );
-  	yield put(color.return_SPREAD_HSL({whichModifying, roleModifying})); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put(actionsColor.return_SPREAD_HSL()); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: numberA
   	}) );
   }
@@ -78,13 +82,13 @@ function* spreadText(action) {
     const numberG = parseInt(result[2]);
     const numberB = parseInt(result[3]);
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'rgb'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
-  	yield put( color.return_SPREAD_RGB({whichModifying, roleModifying}) ); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put( actionsColor.return_SPREAD_RGB() ); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: 1
   	}) );
   }
@@ -96,13 +100,13 @@ function* spreadText(action) {
     const numberB = parseInt(result[3]);
     const numberA = parseFloat(result[4]);
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'rgb'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
-  	yield put( color.return_SPREAD_RGB({whichModifying, roleModifying}) ); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put( actionsColor.return_SPREAD_RGB() ); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: numberA
   	}) );
   }
@@ -113,13 +117,13 @@ function* spreadText(action) {
     const numberG = parseInt(result[2], 16);
     const numberB = parseInt(result[3], 16);
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying,  'rgb'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
-  	yield put( color.return_SPREAD_RGB({whichModifying, roleModifying}) ); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put( actionsColor.return_SPREAD_RGB() ); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: 1
   	}) );
   }
@@ -130,13 +134,13 @@ function* spreadText(action) {
     const numberG = parseInt(`${result[2]}${result[2]}`, 16);
     const numberB = parseInt(`${result[3]}${result[3]}`, 16);
     
-    yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'rgb'],
+    yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
-  	yield put( color.return_SPREAD_RGB({whichModifying, roleModifying}) ); 
-  	yield put( color.return_REPLACE_COLOR({
-      location: [whichModifying, roleModifying, 'opacity'],
+  	yield put( actionsColor.return_SPREAD_RGB() ); 
+  	yield put( actionsColor.return_REPLACE_COLOR({
+      location: [modelCurrent, 'itemCurrent', 'opacity'],
       replacement: 1
   	}) );
   }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const Div_Controller = styled.div
+export const Div_Editor = styled.div
 ` 
   width: 350px;
   height: auto;

@@ -5,8 +5,10 @@ import axios from 'axios';
 
 import * as config from '../config';
 
-import ColorSolo from "../components/Color/ColorSolo"
+import ColorSolo from '../components/Color/ColorSolo';
 //import Heroes from "../components/Player/Heroes"
+
+import Editor from '../components/Color/Editor';
 
 import {useSelector, useDispatch} from "react-redux";
 import Immutable from 'immutable';
@@ -35,6 +37,8 @@ const Color = ({
       <Button_EditColor>
         edit
       </Button_EditColor>
+      
+      <Editor />
       
       <Button_More>
         more
