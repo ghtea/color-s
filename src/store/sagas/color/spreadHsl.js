@@ -23,7 +23,7 @@ function* spreadHsl(action) {
 	const {numberR, numberG, numberB} = convertHslToRgb(numberH, numberS, numberL);
 	
 	yield put( actionsColor.return_REPLACE_COLOR({
-    location: [ modelCurrent, 'itemCurrent', 'rgb' ],
+    location: [ modelCurrent, 'itemCurrent', positionCurrent, 'rgb' ],
     replacement: {r: numberR, g: numberG, b: numberB}
 	}) );
 	

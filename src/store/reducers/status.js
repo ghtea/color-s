@@ -21,11 +21,20 @@ const stateInitial = fromJS({
   },
   
   current: {
+    
     color: {
       model: 'solo',   // solo, duo, series
-      position: '',    //  main, sub, 00, 10, 20, ..., 100
-      mode: 'editing' // edit, more, 
+      position: 'main'   //  main, sub, 00, 10, 20, ..., 100
     }
+    
+  },
+  
+  showing: {
+    
+    color:{
+      editor: true
+    }
+    
   }
   
 });

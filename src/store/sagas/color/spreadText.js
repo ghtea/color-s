@@ -48,12 +48,12 @@ function* spreadText(action) {
     const numberL = Math.round(parseFloat(result[3])*10)/10;
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'hsl'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'hsl'],
       replacement: {h: numberH, s: numberS, l: numberL}
   	}) );
   	yield put( actionsColor.return_SPREAD_HSL() ); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: 1
   	}) );
   }
@@ -66,12 +66,12 @@ function* spreadText(action) {
     const numberA = Math.round(parseFloat(result[4])*100)/100;
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'hsl'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'hsl'],
       replacement: {h: numberH, s: numberS, l: numberL}
   	}) );
   	yield put(actionsColor.return_SPREAD_HSL()); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: numberA
   	}) );
   }
@@ -83,12 +83,12 @@ function* spreadText(action) {
     const numberB = parseInt(result[3]);
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'rgb'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
   	yield put( actionsColor.return_SPREAD_RGB() ); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: 1
   	}) );
   }
@@ -101,12 +101,12 @@ function* spreadText(action) {
     const numberA = parseFloat(result[4]);
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'rgb'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
   	yield put( actionsColor.return_SPREAD_RGB() ); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: numberA
   	}) );
   }
@@ -118,12 +118,12 @@ function* spreadText(action) {
     const numberB = parseInt(result[3], 16);
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'rgb'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
   	yield put( actionsColor.return_SPREAD_RGB() ); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: 1
   	}) );
   }
@@ -135,12 +135,12 @@ function* spreadText(action) {
     const numberB = parseInt(`${result[3]}${result[3]}`, 16);
     
     yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'rgb'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'rgb'],
       replacement: {r: numberR, g: numberG, b: numberB}
   	}) );
   	yield put( actionsColor.return_SPREAD_RGB() ); 
   	yield put( actionsColor.return_REPLACE_COLOR({
-      location: [modelCurrent, 'itemCurrent', 'opacity'],
+      location: [modelCurrent, 'itemCurrent', positionCurrent, 'opacity'],
       replacement: 1
   	}) );
   }

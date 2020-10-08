@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useCallback } from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import {  BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
@@ -12,9 +12,7 @@ import * as actionsStatus from "../../store/actions/status";
 
 import * as config from '../../config';
 
-//import {   } from 'react-color';
-import BoardHue from './Editor/BoardHue';
-// http://casesandberg.github.io/react-color/#api-color
+import iro from '@jaames/iro';
 
 import {Div_Editor, Div_ControlEntire, Div_ControlEach, InputText_ColorElement, InputRange_ColorElement} from './Editor_Styled'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -73,8 +71,6 @@ function Editor({
       replacement: replacement
     }) )
   }, [location])
-  
-  
   
   
   const onChange_ColorElement = useCallback(
@@ -157,14 +153,8 @@ function Editor({
       
       <div>
       
-        <BoardHue 
-          pxWidth={300}
-          pxHeight={24}
-        />
-        
-        
         <Div_ControlEntire> 
-          
+        
           <Div_ControlEach> 
             <div> hue </div> 
             <div> 
