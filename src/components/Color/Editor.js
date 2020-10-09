@@ -16,7 +16,16 @@ import * as config from '../../config';
 import BoardHue from './Editor/BoardHue';
 // http://casesandberg.github.io/react-color/#api-color
 
-import {Div_Editor, Div_ControlEntire, Div_ControlEach, InputText_ColorElement, InputRange_ColorElement} from './Editor_Styled'
+import {
+  Div_Editor, 
+  
+  Div_ControlEntire, Div_ControlEach, 
+  
+  Div_InputRange_ColorElement,
+  Div_InputText_ColorElement,
+  Div_Button_ColorElement
+} from './Editor_Styled'
+
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../tools/hooks/useInput';
 
@@ -151,87 +160,105 @@ function Editor({
   );
   
   
+  
+  
+  const listHsla = useMemo(()=>{
+    // 소수점 이용 가능 => 좀더 자세한 설정
+    const h = colorCurrent.getIn(['hsl', 'h']);
+    const s = colorCurrent.getIn(['hsl', 's']);
+    const l = colorCurrent.getIn(['hsl', 'l']);
+    const opacity = colorCurrent.getIn(['opacity']);
+    
+    return [h, s, l, opacity]
+  }, [colorCurrent]);
+  
+  
   return (
     
     <Div_Editor>
       
       <div>
       
-        <BoardHue 
-          pxWidth={300}
-          pxHeight={24}
-        />
-        
-        
         <Div_ControlEntire> 
           
           <Div_ControlEach> 
-            <div> hue </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'h')} /> 
+            <Div_InputRange_ColorElement
+              pxWidthBoard={200}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={'linear-gradient(to left, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)'}
+            > 
+              <input type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'h')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, -1)}> {'<'} </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, 1)}> {'>'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" /> </div>
+            </Div_Button_ColorElement>
           </Div_ControlEach>
           
-          <Div_ControlEach> 
-            <div> s </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')} /> 
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, -1)}> {'-'} </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, 1)}> {'+'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')}  min="0" max="100" /> </div>
-          </Div_ControlEach>
           
           <Div_ControlEach> 
-            <div> l </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')} />  
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, -1)}> {'-'} </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, 1)}> {'+'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')}  min="0" max="100" /> </div>
+            <Div_InputRange_ColorElement
+              pxWidthBoard={200}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={`linear-gradient(to right, hsla(${listHsla[0]}, 0%, ${listHsla[2]}%, ${listHsla[3]}) 0%, hsla(${listHsla[0]}, 50%, ${listHsla[2]}%, ${listHsla[3]}) 50%, hsla(${listHsla[0]}, 100%, ${listHsla[2]}%, ${listHsla[3]}) 100%)`}
+            > 
+              <input type="range" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')} min="0" max="100" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 's')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, -1)}> {'<'} </button>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, 1)}> {'>'} </button>
+            </Div_Button_ColorElement>
           </Div_ControlEach>
           
-        </Div_ControlEntire>
-        
-        
-        
-        <Div_ControlEntire> 
-          <Div_ControlEach> 
-            <div> red </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'r')} /> 
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, -1)}> {'-'} </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, 1)}> {'+'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'r')} min="0" max="255" /> </div>
-          </Div_ControlEach>
           
           <Div_ControlEach> 
-            <div> green </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'g')} /> 
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, -1)}> {'-'} </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, 1)}> {'+'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'g')}  min="0" max="255" /> </div>
+            <Div_InputRange_ColorElement
+              pxWidthBoard={200}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={`linear-gradient(to right, hsla(${listHsla[0]}, ${listHsla[1]}%, 0%, ${listHsla[3]}) 0%, hsla(${listHsla[0]}, ${listHsla[1]}%, 50%,  ${listHsla[3]}) 50%, hsla(${listHsla[0]}, ${listHsla[1]}%, 100%, ${listHsla[3]}) 100%)`}
+            > 
+              <input type="range" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')} min="0" max="100" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'l')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, -1)}> {'<'} </button>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, 1)}> {'>'} </button>
+            </Div_Button_ColorElement>
           </Div_ControlEach>
           
-          <Div_ControlEach> 
-            <div> blue </div> 
-            <div> 
-              <InputText_ColorElement type="text" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'b')} />  
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, -1)}> {'-'} </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, 1)}> {'+'} </button>
-            </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'b')}  min="0" max="255" /> </div>
-          </Div_ControlEach>
         </Div_ControlEntire>
         
       </div>
+      
       
       <div>
         
@@ -249,6 +276,7 @@ function Editor({
   )
 }
 
+//               cssBackground={`linear-gradient(to left, hsla(${listHsla[0]}, 0%, ${listHsla[2]}%, ${listHsla[3]}) 0%, hsla(${listHsla[0]}, 50%, ${listHsla[2]}%, ${listHsla[3]}) 50%, hsla(${listHsla[0]}, 100%, ${listHsla[2]}%, ${listHsla[3]}) 100%)`}
 
 
 

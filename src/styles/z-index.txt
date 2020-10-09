@@ -6,3 +6,5 @@ main nav: 500
 
 
 button edit, more: 200
+
+editorL 100

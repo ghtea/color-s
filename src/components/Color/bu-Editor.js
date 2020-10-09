@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useMemo, useCallback } from 'react';
 import {  BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
@@ -12,9 +12,15 @@ import * as actionsStatus from "../../store/actions/status";
 
 import * as config from '../../config';
 
-import iro from '@jaames/iro';
+//import {   } from 'react-color';
+import BoardHue from './Editor/BoardHue';
+// http://casesandberg.github.io/react-color/#api-color
 
-import {Div_Editor, Div_ControlEntire, Div_ControlEach, InputText_ColorElement, InputRange_ColorElement} from './Editor_Styled'
+import {
+  Div_Editor, Div_ControlEntire, Div_ControlEach, 
+  InputText_ColorElement, InputRange_ColorElement,
+  Div_InputRange_ColorElement
+} from './Editor_Styled'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../tools/hooks/useInput';
 
@@ -71,6 +77,8 @@ function Editor({
       replacement: replacement
     }) )
   }, [location])
+  
+  
   
   
   const onChange_ColorElement = useCallback(
@@ -153,8 +161,14 @@ function Editor({
       
       <div>
       
-        <Div_ControlEntire> 
+        <BoardHue 
+          pxWidth={300}
+          pxHeight={24}
+        />
         
+        
+        <Div_ControlEntire> 
+          
           <Div_ControlEach> 
             <div> hue </div> 
             <div> 
@@ -162,7 +176,11 @@ function Editor({
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, -1)}> {'<'} </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, 1)}> {'>'} </button>
             </div>
-            <div> <InputRange_ColorElement type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" /> </div>
+            
+            <Div_InputRange_ColorElement> 
+              <input type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" /> 
+            </Div_InputRange_ColorElement>
+            
           </Div_ControlEach>
           
           <Div_ControlEach> 

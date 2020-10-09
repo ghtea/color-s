@@ -88,7 +88,7 @@ function BoardHue( {
     
     <Div_BoardHue
       width={`${pxWidth}px`}
-      height={`${pxHeight}px`}
+      height={`${pxHeight + 20}px`}
     >
       
       <HuePicker
