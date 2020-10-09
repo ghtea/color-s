@@ -11,10 +11,13 @@ import * as actionsColor from "../../store/actions/color";
 
 import * as config from '../../config';
 
-//import Card from './BoardCard/Card';
+import Tiles from './_/Tiles';
+
 import {
   Div_ColorSolo,
-  Div_ItemCurrent
+  Div_ItemCurrent,
+  Div_Color, 
+  Div_Behind
 } from './ColorSolo_Styled';
 
 
@@ -59,16 +62,6 @@ function ColorSolo({
   );
   */
   
-  
-  const textHsl = useMemo(()=>{
-    // 소수점 이용 가능 => 좀더 자세한 설정
-    const h = colorMain.getIn(['hsl', 'h']);
-    const s = colorMain.getIn(['hsl', 's']);
-    const l = colorMain.getIn(['hsl', 'l']);
-    
-    return `hsl(${h}, ${s}%, ${l}%)`
-  }, [colorMain]);
-  
   const textHsla = useMemo(()=>{
     // 소수점 이용 가능 => 좀더 자세한 설정
     const h = colorMain.getIn(['hsl', 'h']);
@@ -80,31 +73,29 @@ function ColorSolo({
   }, [colorMain]);
   
   
-  const textRgb = useMemo(()=>{
-    const r = colorMain.getIn(['rgb', 'r']);
-    const g = colorMain.getIn(['rgb', 'g']);
-    const b = colorMain.getIn(['rgb', 'b']);
-    
-    return `rgb(${r}, ${g}, ${b})`
-  }, [colorMain])
-  
-  const textRgba = useMemo(()=>{
-    const r = colorMain.getIn(['rgb', 'r']);
-    const g = colorMain.getIn(['rgb', 'g']);
-    const b = colorMain.getIn(['rgb', 'b']);
-    const opacity = colorMain.getIn(['opacity']);
-    
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`
-  }, [colorMain])
+  const listZero = useMemo(()=>{
+    return Array(27).fill(0)
+  }, []);
   
   
   return (
     
     <Div_ColorSolo>
       
-      <Div_ItemCurrent
-        colorMain={colorMain}
-      > solo </Div_ItemCurrent>
+      <Div_ItemCurrent> 
+      
+        <Div_Color
+          textHsla={textHsla}
+        />
+        <Div_Behind> 
+          <Tiles 
+            lengthOne={10}
+            widthAll={190}
+            heightAll={40}
+          />
+        </Div_Behind>
+        
+      </Div_ItemCurrent>
       
     </Div_ColorSolo>
     

@@ -17,8 +17,8 @@ export const Div_Color = styled.div
 
 export const Button_Main = styled.button
 `
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   
   border-radius: 50%;
   

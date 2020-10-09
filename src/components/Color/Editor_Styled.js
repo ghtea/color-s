@@ -42,9 +42,17 @@ export const Div_ControlEntire = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   
+  &:nth-child(n+2){
+    margin-top: 20px;
+  }
+  
+  & > div:first-child{
+    width: auto;
+  }
 `
+
 
 export const Div_ControlEach = styled.div`
   width: 100%;
@@ -61,6 +69,7 @@ export const Div_ControlEach = styled.div`
   }
   
   & > div:first-child{
+    width: 10px;
     margin-left: 10px;
   }
   & > div:last-child{
@@ -217,7 +226,7 @@ export const Div_InputText_ColorElement = styled.div`
   width: auto;
   
   input {
-    width: 60px;
+    width: 50px;
     height: 24px;
   }
 `

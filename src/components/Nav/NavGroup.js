@@ -13,7 +13,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { 
 	Div_NavGroup, 
 	Div_NavItem, 
-	Div_NavItemIcon, Div_NavItemTitle
+	Div_NavItemTitle
 } from './NavGroup_Styled'
 import logo from '../../images/favicon_io/android-chrome-192x192.png';
 
@@ -46,12 +46,8 @@ const NavGroup = ({
 			<Div_NavItem
 				onClick = {(event)=>onClick_NavItem(event, '/color/solo')}
 			>
-				<Div_NavItemIcon> 
-					1 
-				</Div_NavItemIcon>
-				
 				<Div_NavItemTitle> 
-					Color Solo 
+					Solo 
 				</Div_NavItemTitle>
 			</Div_NavItem>
 			
@@ -59,12 +55,8 @@ const NavGroup = ({
 			<Div_NavItem
 				onClick = {(event)=>onClick_NavItem(event, '/color/duo')}
 			>
-				<Div_NavItemIcon> 
-					2 
-				</Div_NavItemIcon>
-				
 				<Div_NavItemTitle> 
-					Color Duo 
+					Duo 
 				</Div_NavItemTitle>
 			</Div_NavItem>
 			
@@ -72,12 +64,8 @@ const NavGroup = ({
 			<Div_NavItem
 				onClick = {(event)=>onClick_NavItem(event, '/color/series')}
 			>
-				<Div_NavItemIcon> 
-					s 
-				</Div_NavItemIcon>
-				
 				<Div_NavItemTitle> 
-					Color Series 
+					Series 
 				</Div_NavItemTitle>
 			</Div_NavItem>
 			
@@ -93,7 +81,11 @@ const NavGroup = ({
 export default NavGroup;
 
 
-
+/*
+<Div_NavItemIcon> 
+	1 
+</Div_NavItemIcon>
+*/
 
 /*
 

@@ -10,7 +10,7 @@ export const Div_ColorSolo = styled.div
   
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   
   position: relative;
@@ -27,14 +27,31 @@ export const Div_ColorSolo = styled.div
 
 export const Div_ItemCurrent = styled.div
 ` 
+  width: 190px;
+  height: 40px;
+  
+  position: relative;
+  
+  margin-top: 12px;
+`
+
+export const Div_Color = styled.div
+` 
+  width: 100%;
   height: 100%;
-  background-color: ${props =>
-    `hsla(
-      ${props.colorMain.getIn(['hsl', 'h'])}, 
-      ${props.colorMain.getIn(['hsl', 's'])}%, 
-      ${props.colorMain.getIn(['hsl', 'l'])}%,
-      ${props.colorMain.getIn(['opacity'])}
-      )
-    `
-  };
+  
+  position: absolute;
+  z-index: 1;
+  
+  background-color: ${props=>props.textHsla};
+`
+
+
+
+export const Div_Behind = styled.div
+` 
+  width: 100%;
+  height: 100%;
+  
+  position: absolute;
 `

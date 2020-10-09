@@ -3,15 +3,15 @@
 const colorDefault = {
 	
 	hsl: {
-		h: 0,
-		s: 100,
-		l: 100
+		h: 180,
+		s: 50,
+		l: 50
 	},
 	
 	rgb: {
-		r: 255,
-		g: 255,
-		b: 255
+		r: 64,
+		g: 191,
+		b: 191
 	},
 	
 	opacity: 1
