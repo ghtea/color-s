@@ -15,6 +15,10 @@ import * as config from '../../config';
 //import {   } from 'react-color';
 // http://casesandberg.github.io/react-color/#api-color
 import IconAngle from '../../svgs/basic/IconAngle';
+import IconClone from '../../svgs/basic/IconClone';
+import IconClipboard from '../../svgs/basic/IconClipboard';
+
+import Triangle from './Editor/Triangle';
 
 import {
   Div_Editor, 
@@ -23,7 +27,9 @@ import {
   
   Div_InputRange_ColorElement,
   Div_InputText_ColorElement,
-  Div_Button_ColorElement
+  Div_Button_ColorElement,
+  
+  Div_Tools
 } from './Editor_Styled'
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -204,15 +210,17 @@ function Editor({
     
     <Div_Editor>
       
-      <div>
+      <Triangle pxSideLong={40} transform={`translateY(-${ 10 + 40*0.5}px)`} />
       
+      <div>
+        
         <Div_ControlEntire> 
           <div> HSL </div>
           
           <Div_ControlEach> 
             <div> H </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -230,10 +238,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -242,7 +250,7 @@ function Editor({
           <Div_ControlEach> 
             <div> S </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -260,10 +268,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/> 
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -272,7 +280,7 @@ function Editor({
           <Div_ControlEach> 
             <div> L </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -290,10 +298,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, -1)}>
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -311,7 +319,7 @@ function Editor({
           <Div_ControlEach> 
             <div> R </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -329,10 +337,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -341,7 +349,7 @@ function Editor({
           <Div_ControlEach> 
             <div> G </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -359,10 +367,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, 1)}>
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -371,7 +379,7 @@ function Editor({
           <Div_ControlEach> 
             <div> B </div>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -389,10 +397,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -408,7 +416,7 @@ function Editor({
         <Div_ControlEach> 
           <div/>
             <Div_InputRange_ColorElement
-              pxWidthBoard={200}
+              pxWidthBoard={180}
               pxHeightBoard={24}
               pxBorderRadiusBoard={4}
               
@@ -426,10 +434,10 @@ function Editor({
             
             <Div_Button_ColorElement>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'opacity', '', 1, 0, -0.05)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(0deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
               </button>
               <button onClick={(event)=>onClick_AdjustColorElement(event, 'opacity', '', 1, 0, 0.05)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'80'} transform={`rotateZ(180deg)`}/>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
               </button>
             </Div_Button_ColorElement>
           </Div_ControlEach>
@@ -440,16 +448,21 @@ function Editor({
       </div>
       
       
-      <div>
+      <Div_Tools>
+        
+        <button 
+          
+        > <IconClone width={'24px'} height={'24px'} roleColor={'basic'} phaseColor={'50'}/>
+          <div> Copy </div>
+        </button>
         
         <button 
           onClick={onClick_Paste}
-        > click to paste 
+        > <IconClipboard width={'27px'} height={'27px'} roleColor={'basic'} phaseColor={'50'}/>
+          <div> Paste </div>
         </button>
         
-        <div> examples</div>
-        
-      </div>
+      </Div_Tools>
       
     </Div_Editor>
     

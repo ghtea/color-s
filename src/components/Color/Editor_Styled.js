@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Immutable from 'immutable';
 
 
 export const Div_Editor = styled.div
@@ -12,16 +13,16 @@ export const Div_Editor = styled.div
   
   background-color: ${
     props => `hsl(
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', 'white', 0])}, 
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', 'white', 1])}%, 
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', 'white', 2])}%)
+      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 1])}%, 
+      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 2])}%)
     `
   };
   color: ${
     props => `hsl(
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', '70', 0])}, 
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', '70', 1])}%, 
-      ${props.theme.getIn(['colorScheme', 'color', 'basic', '70', 2])}%)
+      ${props.theme.getIn(['colorAssignment', 'basic', '70', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'basic', '70', 1])}%, 
+      ${props.theme.getIn(['colorAssignmentr', 'basic', '70', 2])}%)
     `
   };
   
@@ -31,6 +32,12 @@ export const Div_Editor = styled.div
   align-items: center;
   
   border-radius: 20px;
+  
+  
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 
@@ -244,6 +251,33 @@ export const Div_Button_ColorElement = styled.div`
   button {
     width: 24px;
     height: 24px;
+    
+    border: ${
+      props => `2px solid hsl(
+        ${props.theme.getIn(['colorAssignment', 'basic', '50', 0])}, 
+        ${props.theme.getIn(['colorAssignment', 'basic', '50', 1])}%, 
+        ${props.theme.getIn(['colorAssignment', 'basic', '50', 2])}%)
+      `
+    };
   }
 `
 
+export const Div_Tools = styled.div
+`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  
+  & > button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    & > div:nth-child(2) {
+      margin-top: 3px;
+    }
+  }
+  
+`
