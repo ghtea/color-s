@@ -15,6 +15,7 @@ const Div_Container = styled.div`
 // heart
 const Icon = ({
 	width, height, 
+	textHsla,
 	roleColor='basic', phaseColor='70',
 	filled=true
 }) => {
@@ -24,13 +25,20 @@ const Icon = ({
   
   const color = useMemo(() => {
   	
-  	return `
+  	if (textHsla !== ''){
+  		console.log(textHsla)
+  		return (textHsla)
+  	}
+  	else {
+  		return `
 	  	hsl(
 	      ${usingTheme.getIn(['colorAssignment', roleColor, phaseColor, 0])}, 
 	      ${usingTheme.getIn(['colorAssignment', roleColor, phaseColor, 1])}%, 
 	      ${usingTheme.getIn(['colorAssignment', roleColor, phaseColor, 2])}%)
 	    `
-  }, [usingTheme]);
+  	}
+  	
+  }, [usingTheme, textHsla, roleColor, phaseColor]);
   
   
 	return (

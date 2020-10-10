@@ -40,7 +40,7 @@ export const Div_Main = styled.div
   width: 100%;
   height: 100%;
   
-  background-color: ${props=>props.textHsla};
+  color: ${props=>props.textHslaMain};
   
   display: flex;
   flex-direction: row;
@@ -69,4 +69,11 @@ export const Div_Sub = styled.div
   height: 100%;
   
   position: absolute;
+  
+  & > div:nth-child(1){
+    background-color: ${props=>props.textHslaSub};
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 `

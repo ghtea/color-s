@@ -3,7 +3,7 @@ import Immutable, { Map, List, fromJS } from 'immutable';
 
 import * as color from '../actions/color';
 
-import colorDefault from './color/colorDefault';
+import colorDefault, {colorDefaultSub} from './color/colorDefault';
 //import defaultUsingColorAssignment from '../../styles/defaultUsingColorAssignment'
 
 
@@ -25,7 +25,7 @@ const stateInitial = fromJS({
     itemCurrent: {
       _id: 'default',
       main: colorDefault,
-      sub: colorDefault
+      sub: colorDefaultSub
     },
     listItem: []
   },

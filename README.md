@@ -3,7 +3,7 @@
 # Color S
 
 [address](https://cs_dev.nextwing.me)
-
+_Find good colors_
 
 ## introduction
 
@@ -15,7 +15,7 @@
 ## skills
 
 skill |  level (0-5) | focus
----|:---:|---:
+---|:---:|:---
 React.js  | 3 | applied useMemo, useSelctor for almost all
 Styled Component | 4 | saved as additional js 
 Redux | 3 | saved almost all status state in redux store
@@ -34,5 +34,4 @@ immutable.js | 1 |
 - speed up 최적화로 반응속도 빠르게
 
 ## helps
-- https://guides.github.com/features/mastering-markdown/
 - https://heropy.blog/2017/09/30/markdown/
