@@ -6,6 +6,7 @@ import axios from 'axios';
 import * as config from '../config';
 
 import ColorSolo from '../components/Color/ColorSolo';
+import ColorDuo from '../components/Color/ColorDuo';
 //import Heroes from "../components/Player/Heroes"
 
 import Editor from '../components/Color/Editor';
@@ -48,7 +49,7 @@ const Color = ({
     <Switch>
     
       <Route path="/color/solo" component={ColorSolo} />
-      <Route path="/color/duo" component={ColorSolo} />
+      <Route path="/color/duo" component={ColorDuo} />
       <Route path="/color/series" component={ColorSolo} />
       
     </Switch>

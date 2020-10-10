@@ -57,7 +57,7 @@ export const Div_NavItemIcon = styled.div`
 export const Div_NavItemTitle = styled.div`
   width: auto;
 	heigth: auto;
-  display: none;
+  /* display: none; */
   
   @media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
     display: flex;

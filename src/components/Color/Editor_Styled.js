@@ -8,7 +8,7 @@ export const Div_Editor = styled.div
   height: auto;
   
   position: absolute;
-  top: 90px;
+  top: 120px;
   z-index: 100;
   
   background-color: ${

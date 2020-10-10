@@ -14,18 +14,19 @@ import * as config from '../../config';
 import Tiles from './_/Tiles';
 
 import {
-  Div_ColorSolo,
+  Div_ColorDuo,
   Div_ItemCurrent,
-  Div_Color, 
-  Div_Behind
-} from './ColorSolo_Styled';
+  Div_Main, 
+  Div_Sub
+} from './ColorDuo_Styled';
 
 
-function ColorSolo({
+function ColorDuo({
   
 }) {
   
-  const colorMain = useSelector( state => state.color.getIn(['solo', 'itemCurrent', 'main']), [] );
+  const colorMain = useSelector( state => state.color.getIn(['duo', 'itemCurrent', 'main']), [] );
+  const colorSub = useSelector( state => state.color.getIn(['duo', 'itemCurrent', 'sub']), [] );
   
   console.log(colorMain.toJS())
   /*
@@ -71,27 +72,31 @@ function ColorSolo({
   
   return (
     
-    <Div_ColorSolo>
+    <Div_ColorDuo>
       
       <Div_ItemCurrent> 
       
-        <Div_Color
+        <Div_Main
           textHsla={textHsla}
-        />
-        <Div_Behind> 
+        >
+          <div> text </div>
+          <div> shape </div>
+        </Div_Main>
+        
+        <Div_Sub> 
           <Tiles 
             lengthOne={10}
             widthAll={190}
             heightAll={40}
           />
-        </Div_Behind>
+        </Div_Sub>
         
       </Div_ItemCurrent>
       
-    </Div_ColorSolo>
+    </Div_ColorDuo>
     
   )
 }
 
 
-export default ColorSolo;
+export default ColorDuo;
