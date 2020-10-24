@@ -6,11 +6,11 @@ export const Div_ColorDuo = styled.div
   width: 100%;
   max-width: 500px;
   min-width: 350px;
-  height: 520px;
+  height: auto;
   
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   
   position: relative;
@@ -24,6 +24,19 @@ export const Div_ColorDuo = styled.div
 `;
 
 
+export const Div_TopLeft = styled.div
+` 
+  width: 60px;
+  height: 80px;
+  
+`
+
+export const Div_TopRight = styled.div
+` 
+  width: 60px;
+  height: 80px;
+  
+`
 
 export const Div_ItemCurrent = styled.div
 ` 

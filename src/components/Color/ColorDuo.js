@@ -18,6 +18,7 @@ import IconHeart from '../../svgs/basic/IconHeart';
 
 import {
   Div_ColorDuo,
+  Div_TopLeft, Div_TopRight,
   Div_ItemCurrent,
   Div_Main, 
   Div_Sub
@@ -80,6 +81,8 @@ function ColorDuo({
     
     <Div_ColorDuo>
       
+      <Div_TopLeft> choose </Div_TopLeft>
+      
       <Div_ItemCurrent> 
       
         <Div_Main
@@ -101,6 +104,8 @@ function ColorDuo({
         </Div_Sub>
         
       </Div_ItemCurrent>
+      
+      <Div_TopRight> auto </Div_TopRight>
       
     </Div_ColorDuo>
     

@@ -35,15 +35,9 @@ const Color = ({
   <Div_Color>
     
     <div> 
-      <Button_EditColor>
-        edit
-      </Button_EditColor>
       
       <Editor />
       
-      <Button_More>
-        more
-      </Button_More>
     </div>
     
     <Switch>

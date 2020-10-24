@@ -50,6 +50,7 @@ function Editor({
   const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', 'mode']), [] );
+  const isOpacityCurrent = useSelector( state => state.status.getIn(['current', 'color', 'opacity']), [] );
   
   const colorCurrent = useSelector( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
   
@@ -92,6 +93,36 @@ function Editor({
   }, [location])
   
   
+  
+  const onChange_Option = useCallback(
+    (event, option) => {
+      let replacement = '';
+      
+      if (option==='mode'){
+        if (modeCurrent==='hsl'){
+          replacement = 'rgb';
+        }
+        else {
+          replacement = 'hsl';
+        }
+      }
+      else if (option==='opacity'){
+        if (isOpacityCurrent===true){
+          replacement = false;
+        }
+        else {
+          replacement = true;
+        }
+      }
+        
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', option],
+        replacement: replacement
+      }) )
+      
+    },
+    [modeCurrent, isOpacityCurrent]
+  );
   
   
   const onChange_ColorElement = useCallback(
@@ -208,22 +239,22 @@ function Editor({
     return [r, g, b, opacity]
   }, [colorCurrent]);
   
+  // <Triangle pxSideLong={40} transform={`translateY(-${ 10 + 40*0.5}px)`} />
+      
+      
   return (
     
     <Div_Editor>
       
-      <Triangle pxSideLong={40} transform={`translateY(-${ 10 + 40*0.5}px)`} />
-      
-      
       <Div_Options>
         
         <button 
-          
+          onClick={(event)=>onChange_Option(event, 'mode')}
         > HSL vs RGB
         </button>
         
         <button 
-        
+          onClick={(event)=>onChange_Option(event, 'opacity')}
         > Opacity
         </button>
         
@@ -232,6 +263,8 @@ function Editor({
       
       <div>
         
+        
+        { modeCurrent !== "rgb"  && (
         <Div_ControlEntire> 
           <div> HSL </div>
           
@@ -325,14 +358,108 @@ function Editor({
           </Div_ControlEach>
           
         </Div_ControlEntire>
+        )}
         
         
         
+        { modeCurrent === "rgb" && (
+        <Div_ControlEntire> 
+          <div> RGB </div>
+          
+          <Div_ControlEach> 
+            <div> R </div>
+            <Div_InputRange_ColorElement
+              pxWidthBoard={180}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={`linear-gradient(to right, rgba(0, ${listRgba[1]}, ${listRgba[2]}, ${listRgba[3]}) 0%, rgba(128, ${listRgba[1]}, ${listRgba[2]}, ${listRgba[3]}) 50%, rgba(255, ${listRgba[1]}, ${listRgba[2]}, ${listRgba[3]}) 100%)`}
+            > 
+              <input type="range" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'r')} min="0" max="255" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'r')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, -1)}> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
+              </button>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'r', 255, 0, 1)}> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
+              </button>
+            </Div_Button_ColorElement>
+          </Div_ControlEach>
+          
+          
+          <Div_ControlEach> 
+            <div> G </div>
+            <Div_InputRange_ColorElement
+              pxWidthBoard={180}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={`linear-gradient(to right, rgba(${listRgba[0]}, 0, ${listRgba[2]}, ${listRgba[3]}) 0%, rgba(${listRgba[0]}, 128, ${listRgba[2]}, ${listRgba[3]}) 50%, rgba(${listRgba[0]}, 255, ${listRgba[2]}, ${listRgba[3]}) 100%)`}
+            > 
+              <input type="range" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'g')} min="0" max="255" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'g')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, -1)}> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
+              </button>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'g', 255, 0, 1)}>
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
+              </button>
+            </Div_Button_ColorElement>
+          </Div_ControlEach>
+          
+          
+          <Div_ControlEach> 
+            <div> B </div>
+            <Div_InputRange_ColorElement
+              pxWidthBoard={180}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              
+              cssBackground={`linear-gradient(to right, rgba(${listRgba[0]}, ${listRgba[1]}, 0, ${listRgba[3]}) 0%, rgba(${listRgba[0]}, ${listRgba[1]}, 128,  ${listRgba[3]}) 50%, rgba(${listRgba[0]}, ${listRgba[1]}, 255, ${listRgba[3]}) 100%)`}
+            > 
+              <input type="range" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'b')} min="0" max="255" /> 
+            </Div_InputRange_ColorElement>
+            
+            <Div_InputText_ColorElement> 
+              <input type="text" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'b')} /> 
+            </Div_InputText_ColorElement>
+            
+            <Div_Button_ColorElement>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, -1)}> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
+              </button>
+              <button onClick={(event)=>onClick_AdjustColorElement(event, 'rgb', 'b', 255, 0, 1)}> 
+                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
+              </button>
+            </Div_Button_ColorElement>
+          </Div_ControlEach>
+          
+        </Div_ControlEntire>
+        )}
         
         
-        
-        
-        
+      { isOpacityCurrent && (
       <Div_ControlEntire>
         <div> Opacity </div>
         
@@ -366,7 +493,7 @@ function Editor({
           </Div_ControlEach>
           
         </Div_ControlEntire>
-        
+        )}
         
       </div>
       

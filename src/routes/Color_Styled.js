@@ -14,27 +14,3 @@ export const Div_Color = styled.div
   position: relative;
 `;
 
-
-export const Button_Main = styled.button
-`
-  width: 40px;
-  height: 40px;
-  
-  border-radius: 50%;
-  
-  position: absolute;
-  z-index: 200;
-`
-
-
-export const Button_EditColor = styled(Button_Main)
-`
-  left: 5px;
-  top: 5px;
-`
-
-export const Button_More = styled(Button_Main)
-`
-  right: 5px;
-  top: 5px;
-`
