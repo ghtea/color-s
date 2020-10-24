@@ -42,6 +42,29 @@ export const Div_Editor = styled.div
 
 
 
+export const Div_Options = styled.div
+`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  
+  & > button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    & > div:nth-child(2) {
+      margin-top: 3px;
+    }
+  }
+  
+`
+
+
+
+
 export const Div_ControlEntire = styled.div`
   width: 100%;
   height: auto;
