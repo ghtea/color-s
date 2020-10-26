@@ -23,6 +23,8 @@ import Triangle from './Editor/Triangle';
 import {
   Div_Editor, 
   
+  Div_Options, 
+  
   Div_ControlEntire, Div_ControlEach, 
   
   Div_InputRange_ColorElement,
@@ -48,6 +50,7 @@ function Editor({
   const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', 'mode']), [] );
+  const isOpacityCurrent = useSelector( state => state.status.getIn(['current', 'color', 'opacity']), [] );
   
   const colorCurrent = useSelector( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
   
@@ -90,6 +93,36 @@ function Editor({
   }, [location])
   
   
+  
+  const onChange_Option = useCallback(
+    (event, option) => {
+      let replacement = '';
+      
+      if (option==='mode'){
+        if (modeCurrent==='hsl'){
+          replacement = 'rgb';
+        }
+        else {
+          replacement = 'hsl';
+        }
+      }
+      else if (option==='opacity'){
+        if (isOpacityCurrent===true){
+          replacement = false;
+        }
+        else {
+          replacement = true;
+        }
+      }
+        
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', option],
+        replacement: replacement
+      }) )
+      
+    },
+    [modeCurrent, isOpacityCurrent]
+  );
   
   
   const onChange_ColorElement = useCallback(
@@ -206,14 +239,32 @@ function Editor({
     return [r, g, b, opacity]
   }, [colorCurrent]);
   
+  // <Triangle pxSideLong={40} transform={`translateY(-${ 10 + 40*0.5}px)`} />
+      
+      
   return (
     
     <Div_Editor>
       
-      <Triangle pxSideLong={40} transform={`translateY(-${ 10 + 40*0.5}px)`} />
+      <Div_Options>
+        
+        <button 
+          onClick={(event)=>onChange_Option(event, 'mode')}
+        > HSL vs RGB
+        </button>
+        
+        <button 
+          onClick={(event)=>onChange_Option(event, 'opacity')}
+        > Opacity
+        </button>
+        
+      </Div_Options>
+      
       
       <div>
         
+        
+        { modeCurrent !== "rgb"  && (
         <Div_ControlEntire> 
           <div> HSL </div>
           
@@ -307,12 +358,11 @@ function Editor({
           </Div_ControlEach>
           
         </Div_ControlEntire>
+        )}
         
         
         
-        
-        
-        
+        { modeCurrent === "rgb" && (
         <Div_ControlEntire> 
           <div> RGB </div>
           
@@ -406,10 +456,10 @@ function Editor({
           </Div_ControlEach>
           
         </Div_ControlEntire>
+        )}
         
         
-        
-        
+      { isOpacityCurrent && (
       <Div_ControlEntire>
         <div> Opacity </div>
         
@@ -443,7 +493,7 @@ function Editor({
           </Div_ControlEach>
           
         </Div_ControlEntire>
-        
+        )}
         
       </div>
       

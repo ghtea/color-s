@@ -9,7 +9,6 @@ import ColorSolo from '../components/Color/ColorSolo';
 import ColorDuo from '../components/Color/ColorDuo';
 //import Heroes from "../components/Player/Heroes"
 
-import Editor from '../components/Color/Editor';
 
 import {useSelector, useDispatch} from "react-redux";
 import Immutable from 'immutable';
@@ -33,12 +32,6 @@ const Color = ({
    return (
   
   <Div_Color>
-    
-    <div> 
-      
-      <Editor />
-      
-    </div>
     
     <Switch>
     

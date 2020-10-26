@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 
 export const Div_Color = styled.div
 `
-  width: 350px;
+  width: 100%;
   
   display: flex;
   flex-direction: column;

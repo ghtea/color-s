@@ -12,16 +12,12 @@ import * as actionsColor from "../../store/actions/color";
 import * as config from '../../config';
 
 import Tiles from './_/Tiles';
-import Editor from './Editor';
 
 import {
   Div_ColorSolo,
-  
-  Div_Main,
-  Div_Main_Left, Div_Main_Middle, Div_Main_Right,
-  Div_Color_Main,
-  
-  Div_Container
+  Div_ItemCurrent,
+  Div_Color, 
+  Div_Behind
 } from './ColorSolo_Styled';
 
 
@@ -77,25 +73,20 @@ function ColorSolo({
     
     <Div_ColorSolo>
       
-      <Div_Main> 
-        
-        <Div_Main_Left> 
-          <button> copy </button>
-          <button> list </button>
-        </Div_Main_Left>
-        
-        <Div_Main_Middle> 
-            <Div_Color_Main> main </Div_Color_Main>
-        </Div_Main_Middle>
-        
-        <Div_Main_Right> 
-        </Div_Main_Right>
+      <Div_ItemCurrent> 
       
-      </Div_Main>
-      
-      <Div_Container>
-        <Editor />
-      </Div_Container>
+        <Div_Color
+          textHsla={textHsla}
+        />
+        <Div_Behind> 
+          <Tiles 
+            lengthOne={10}
+            widthAll={190}
+            heightAll={40}
+          />
+        </Div_Behind>
+        
+      </Div_ItemCurrent>
       
     </Div_ColorSolo>
     
