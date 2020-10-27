@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Immutable from 'immutable';
 
+// 320, 360 (many), 414 (current max)
 
 export const Div_Template = styled.div
 ` 
@@ -14,7 +15,9 @@ export const Div_Template = styled.div
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
   background-color: none;
   
-  width: auto;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   height: auto;
   font-size: 1rem;
   border-radius: 0px;
@@ -32,9 +35,7 @@ export const Div_Template = styled.div
   padding-right: 0px;
   
   
-	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-	 
+	@media (min-width: 768px) {
 	 
 	}
-	
 `;

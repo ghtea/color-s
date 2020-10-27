@@ -22,16 +22,11 @@ import Triangle from './Editor/Triangle';
 
 import {
   Div_Editor, 
+  Div_Editor_A, Div_Editor_B, Div_Editor_C,
   
-  Div_Options, 
-  
-  Div_ControlEntire, Div_ControlEach, 
-  
-  Div_InputRange_ColorElement,
-  Div_InputText_ColorElement,
-  Div_Button_ColorElement,
-  
-  Div_Tools
+  Div_Editor_A_ChangeMode, Div_Editor_A_ToggleOpacity,
+  Div_Editor_B_Element,
+  Div_Editor_C_UseClipboard, Div_Editor_C_BackForward
 } from './Editor_Styled'
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -246,177 +241,38 @@ function Editor({
     
     <Div_Editor>
       
-      <Div_Options>
-        
-        <button 
-          onClick={(event)=>onChange_Option(event, 'mode')}
-        > HSL vs RGB
-        </button>
-        
-        <button 
-          onClick={(event)=>onChange_Option(event, 'opacity')}
-        > Opacity
-        </button>
-        
-      </Div_Options>
+      <Div_Editor_A>
+        <Div_Editor_A_ChangeMode> hsl vs rgb </Div_Editor_A_ChangeMode> 
+        <Div_Editor_A_ToggleOpacity> opacity: off </Div_Editor_A_ToggleOpacity> 
+      </Div_Editor_A>
       
+      <Div_Editor_B>
+        <Div_Editor_B_Element> 
+          <div> h </div>
+          <div> slider </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+        
+        <Div_Editor_B_Element> 
+          <div> s </div>
+          <div> slider </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+        
+        <Div_Editor_B_Element> 
+          <div> l </div>
+          <div> slider </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+      </Div_Editor_B>
       
-      <div>
-        
-        
-        { modeCurrent !== "rgb"  && (
-        <Div_ControlEntire> 
-          <div> HSL </div>
-          
-          <Div_ControlEach> 
-            <div> H </div>
-            <Div_InputRange_ColorElement
-              pxWidthBoard={180}
-              pxHeightBoard={24}
-              pxBorderRadiusBoard={4}
-              
-              pxWidthPointer={16}
-              pxBorderWidthPointer={3}
-              
-              cssBackground={'linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)'}
-            > 
-              <input type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" /> 
-            </Div_InputRange_ColorElement>
-            
-            <Div_InputText_ColorElement> 
-              <input type="text" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'h')} /> 
-            </Div_InputText_ColorElement>
-            
-            <Div_Button_ColorElement>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
-              </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'h', 360, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
-              </button>
-            </Div_Button_ColorElement>
-          </Div_ControlEach>
-          
-          
-          <Div_ControlEach> 
-            <div> S </div>
-            <Div_InputRange_ColorElement
-              pxWidthBoard={180}
-              pxHeightBoard={24}
-              pxBorderRadiusBoard={4}
-              
-              pxWidthPointer={16}
-              pxBorderWidthPointer={3}
-              
-              cssBackground={`linear-gradient(to right, hsla(${listHsla[0]}, 0%, ${listHsla[2]}%, ${listHsla[3]}) 0%, hsla(${listHsla[0]}, 50%, ${listHsla[2]}%, ${listHsla[3]}) 50%, hsla(${listHsla[0]}, 100%, ${listHsla[2]}%, ${listHsla[3]}) 100%)`}
-            > 
-              <input type="range" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')} min="0" max="100" /> 
-            </Div_InputRange_ColorElement>
-            
-            <Div_InputText_ColorElement> 
-              <input type="text" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 's')} /> 
-            </Div_InputText_ColorElement>
-            
-            <Div_Button_ColorElement>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, -1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/> 
-              </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 's', 100, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
-              </button>
-            </Div_Button_ColorElement>
-          </Div_ControlEach>
-          
-          
-          <Div_ControlEach> 
-            <div> L </div>
-            <Div_InputRange_ColorElement
-              pxWidthBoard={180}
-              pxHeightBoard={24}
-              pxBorderRadiusBoard={4}
-              
-              pxWidthPointer={16}
-              pxBorderWidthPointer={3}
-              
-              cssBackground={`linear-gradient(to right, hsla(${listHsla[0]}, ${listHsla[1]}%, 0%, ${listHsla[3]}) 0%, hsla(${listHsla[0]}, ${listHsla[1]}%, 50%,  ${listHsla[3]}) 50%, hsla(${listHsla[0]}, ${listHsla[1]}%, 100%, ${listHsla[3]}) 100%)`}
-            > 
-              <input type="range" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')} min="0" max="100" /> 
-            </Div_InputRange_ColorElement>
-            
-            <Div_InputText_ColorElement> 
-              <input type="text" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'l')} /> 
-            </Div_InputText_ColorElement>
-            
-            <Div_Button_ColorElement>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, -1)}>
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
-              </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'hsl', 'l', 100, 0, 1)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
-              </button>
-            </Div_Button_ColorElement>
-          </Div_ControlEach>
-          
-        </Div_ControlEntire>
-        )}
-        
-        
-        
-        
-      { isOpacityCurrent && (
-      <Div_ControlEntire>
-        <div> Opacity </div>
-        
-        <Div_ControlEach> 
-          <div/>
-            <Div_InputRange_ColorElement
-              pxWidthBoard={180}
-              pxHeightBoard={24}
-              pxBorderRadiusBoard={4}
-              
-              pxWidthPointer={16}
-              pxBorderWidthPointer={3}
-              
-              cssBackground={`linear-gradient(to right, hsla(${listHsla[0]}, ${listHsla[1]}%, ${listHsla[2]}%, 0) 0%, hsla(${listHsla[0]}, ${listHsla[1]}%, ${listHsla[2]}%,  0.5) 50%, hsla(${listHsla[0]}, ${listHsla[1]}%, ${listHsla[2]}%, 1) 100%)`}
-            > 
-              <input type="range" value={colorCurrent.getIn(['opacity'])} onChange={(event)=>onChange_ColorElement(event, 'opacity', undefined)} min="0" max="1" step='.05' /> 
-            </Div_InputRange_ColorElement>
-            
-            <Div_InputText_ColorElement> 
-              <input type="text" value={colorCurrent.getIn(['opacity'])} onChange={(event)=>onChange_ColorElement(event,'opacity', undefined)} /> 
-            </Div_InputText_ColorElement>
-            
-            <Div_Button_ColorElement>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'opacity', '', 1, 0, -0.05)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(0deg)`}/>
-              </button>
-              <button onClick={(event)=>onClick_AdjustColorElement(event, 'opacity', '', 1, 0, 0.05)}> 
-                <IconAngle width={'20px'} height={'20px'} roleColor={'basic'} phaseColor={'50'} transform={`rotateZ(180deg)`}/>
-              </button>
-            </Div_Button_ColorElement>
-          </Div_ControlEach>
-          
-        </Div_ControlEntire>
-        )}
-        
-      </div>
-      
-      
-      <Div_Tools>
-        
-        <button 
-          
-        > <IconClone width={'24px'} height={'24px'} roleColor={'basic'} phaseColor={'50'}/>
-          <div> Copy </div>
-        </button>
-        
-        <button 
-          onClick={onClick_Paste}
-        > <IconClipboard width={'27px'} height={'27px'} roleColor={'basic'} phaseColor={'50'}/>
-          <div> Paste </div>
-        </button>
-        
-      </Div_Tools>
+      <Div_Editor_C>
+        <Div_Editor_C_UseClipboard> from clipboard </Div_Editor_C_UseClipboard> 
+        <Div_Editor_C_BackForward> back - foward </Div_Editor_C_BackForward>
+      </Div_Editor_C>
       
     </Div_Editor>
     

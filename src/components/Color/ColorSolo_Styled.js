@@ -34,17 +34,17 @@ export const Div_Main = styled.div
   border: 0px dashed #aaa;  /* border: 2px dashed #aaa; */
   background-color: #fff;
   
-  width: 100%;
-  min-width: 340px;
-  max-width: 400px;
+  width: calc(100% - 10px);
+  min-width: 310px;  /* margin left, right: 5 * 2  320 - 10 = 310 */
+  max-width: 390px;  /* margin left, right: 5 * 2  400 - 10 = 390 */
   height: 160px;
   font-size: 17px;
   border-radius: 10px;
   
-  margin-top: 0px;
+  margin-top: 5px;
   margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
   
   padding-top: 0px;
   padding-bottom: 0px;
@@ -72,7 +72,7 @@ export const Div_Main_Left = styled.div
   border: 0px dashed #aaa;  /* border: 2px dashed #aaa; */
   background-color: #ddd;
   
-  width: 60px;
+  width: 50px;
   height: 100%;
   font-size: 17px;
   border-radius: 0px;
@@ -137,7 +137,7 @@ export const Div_Main_Right = styled.div
   border: 0px dashed #aaa;  /* border: 2px dashed #aaa; */
   background-color: #ddd;
   
-  width: 60px;
+  width: 50px;
   height: 100%;
   font-size: 17px;
   border-radius: 0px;
@@ -173,7 +173,7 @@ export const Div_Main_Middle = styled.div
   border: 0px dashed #aaa;  /* border: 2px dashed #aaa; */
   background-color: #fff;
   
-  width: calc(100% - 120px);
+  width: calc(100% - 100px);  /*  210 ~ 290  */
   height: 100%;
   font-size: 17px;
   border-radius: 0px;
@@ -251,7 +251,7 @@ export const Div_Container = styled.div
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
   background-color: none;
   
-  width: auto;
+  width: 100%;
   height: auto;
   font-size: 1rem;
   border-radius: 0px;

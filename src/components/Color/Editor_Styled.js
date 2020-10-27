@@ -4,301 +4,351 @@ import Immutable from 'immutable';
 
 export const Div_Editor = styled.div
 ` 
-  width: 350px;
-  height: auto;
-  
-  z-index: 100;
-  
-  background-color: ${
-    props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 1])}%, 
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 2])}%)
-    `
-  };
-  color: ${
-    props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'basic', '70', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'basic', '70', 1])}%, 
-      ${props.theme.getIn(['colorAssignmentr', 'basic', '70', 2])}%)
-    `
-  };
-  
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: column;   /* row */
+  justify-content: space-evenly;
   align-items: center;
+  flex-wrap: no-wrap;
   
-  border-radius: 20px;
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: calc(100% - 10px);
+  min-width: 310px;
+  max-width: 390px;
+  height: auto;
+  font-size: 1rem;
+  border-radius: 5px;
+  
+  position: static;
+  
+  margin-top: 5px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
   
   
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+	@media (min-width: 768px) {
+	 
+	}
+`;
+
+
+export const Div_Editor_A = styled.div
+` 
+  display: flex;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: #ddd;
+  
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 10px 10px 0px 0px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  @media (min-width: 768px) {
+	 
+	}
+`;
+
+
+export const Div_Editor_A_ChangeMode = styled.div
+` 
+  display: flex;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 2px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: 90px;
+  height: 36px;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  
+	@media (min-width: 768px) {
+	 
+	}
+`;
+
+
+export const Div_Editor_A_ToggleOpacity = styled.div
+` 
+  display: flex;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 2px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: 90px;
+  height: 36px;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  
+	@media (min-width: 768px) {
+	 
+	}
 `;
 
 
 
-export const Div_Options = styled.div
-`
+
+export const Div_Editor_B = styled.div
+` 
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;   /* row */
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: no-wrap;
   
-  & > button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
-    & > div:nth-child(2) {
-      margin-top: 3px;
-    }
-  }
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
   
-`
-
-
-
-
-export const Div_ControlEntire = styled.div`
   width: 100%;
   height: auto;
+  font-size: 1rem;
+  border-radius: 0px;
   
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  @media (min-width: 768px) {
+	 
+	}
+`;
+
+export const Div_Editor_B_Element = styled.div
+` 
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: strecth;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: static;
   
   &:nth-child(n+2){
-    margin-top: 20px;
+    margin-top: 5px;
   }
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
   
-  & > div:first-child{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  & > div {
     width: auto;
-  }
-`
-
-
-export const Div_ControlEach = styled.div`
-  width: 100%;
-  height: 40px;
-  
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  
-  &>div{
-    width: auto;
-    height: auto;
+    height: 100%;
   }
   
-  & > div:first-child{
-    width: 10px;
-    margin-left: 10px;
+  & > div:nth-child(2n+1){
+    background-color: #fff;
   }
-  & > div:last-child{
-    margin-right: 10px;
-  }
-
-`
-
-
-
-
-
-
-
-// https://github.com/darlanrod/input-range-scss/blob/master/_inputrange.scss
-// https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
-export const Div_InputRange_ColorElement = styled.div
-` 
-  width: ${props => props.pxWidthBoard +  (props.pxWidthPointer + props.pxBorderWidthPointer * 2)}px;
-  height: ${props => props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
-  position: relative;
-  
-  
-  /* basic */
-  input[type=range] {
-    -webkit-appearance: none;
-    border: none;
-    ${props=>`
-      width: ${props.pxWidthBoard}px;
-    `}
-    background: transparent;
-  }
-  input[type=range]:focus {
-    outline: none;
+  & > div:nth-child(2n){
+    background-color: #ddd;
   }
   
-  
-  /* chrome */
-  input[type=range]::-webkit-slider-runnable-track {
-    ${props=>`
-      width: ${props.pxWidthBoard}px;
-      height: ${props.pxHeightBoard}px;
-      
-      border-radius: ${props.pxBorderRadiusBoard}px;
-      cursor: pointer;
-      
-      background: ${props.cssBackground};
-    `}
+  & > div:nth-child(1){
+    width: 30px;
   }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    /*margin-top: -14px;*/
-    ${props=>`
-      width: ${props.pxWidthPointer}px;
-      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
-      
-      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
-      background-color: transparent;
-      
-      border: ${props.pxBorderWidthPointer}px solid #ffffff;
-      border-radius: 3px;
-      box-sizing: border-box;
-      
-      margin-top: -${props.pxBorderWidthPointer}px;   /* important! */
-    `}
+  & > div:nth-child(2){
+    flex-grow: 1; /* the others are 0*/ /* */
   }
-  input[type=range]:focus::-webkit-slider-runnable-track {
-    /*background: #367ebd;*/
-  }
-  
-  
-  
-  /* Firefox */
-  input[type=range]::-moz-range-track {
-    ${props=>`
-      width: ${props.pxWidthBoard}px;
-      height: ${props.pxHeightBoard}px;
-      border-radius: ${props.pxBorderRadiusBoard}px;
-      
-      cursor: pointer;
-      
-      background: ${props.cssBackground};
-    `}
-  }
-  input[type=range]::-moz-range-thumb {
-    ${props=>`
-      
-      width: ${props.pxWidthPointer}px;
-      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
-      
-      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
-      background-color: transparent;
-      
-      border: ${props.pxBorderWidthPointer}px solid #ffffff;
-      border-radius: 3px;
-      box-sizing: border-box;
-    `}
-  }
-  
-  
-  /* Edge */
-  input[type=range]::-ms-track {
-    ${props=>`
-      width: ${props.pxWidthBoard}px;
-      height: ${props.pxHeightBoard}px;
-      
-      border-radius: ${props.pxBorderRadiusBoard}px;
-      cursor: pointer;
-      
-      background: ${props.cssBackground};
-    `}
-  }
-  input[type=range]::-ms-fill-lower {
-    background: transparent;
-    border-color: transparent;
-  }
-  input[type=range]::-ms-fill-upper {
-    background: transparent;
-    border-color: transparent;
-  }
-  
-  input[type=range]:focus::-ms-fill-lower {
-    /*background: #3071a9; */
-  }
-  input[type=range]:focus::-ms-fill-upper {
-    /*background: #367ebd; */
-  }
-  
-  input[type=range]::-ms-thumb {
-    ${props=>`
-      
-      width: ${props.pxWidthPointer}px;
-      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
-      
-      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
-      background-color: transparent;
-      
-      border: ${props.pxBorderWidthPointer}px solid #ffffff;
-      border-radius: 3px;
-      box-sizing: border-box;
-    `}
-    
-  }
-  
-  
-`
-
-
-
-
-
-export const Div_InputText_ColorElement = styled.div`
-
-  width: auto;
-  
-  input {
+  & > div:nth-child(3){
     width: 50px;
-    height: 24px;
   }
-`
-
-
-export const Div_Button_ColorElement = styled.div`
-
-  width: auto;
-  
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  
-  button {
-    width: 24px;
-    height: 24px;
-    
-    border: ${
-      props => `2px solid hsl(
-        ${props.theme.getIn(['colorAssignment', 'basic', '50', 0])}, 
-        ${props.theme.getIn(['colorAssignment', 'basic', '50', 1])}%, 
-        ${props.theme.getIn(['colorAssignment', 'basic', '50', 2])}%)
-      `
-    };
+  & > div:nth-child(4){
+    width: 30px;
   }
-`
+  
+	@media (min-width: 768px) {
+	 
+	}
+`;
 
-export const Div_Tools = styled.div
-`
+
+
+
+export const Div_Editor_C = styled.div
+` 
   display: flex;
-  flex-direction: row;
+  flex-direction: row;   /* row */
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: no-wrap;
   
-  & > button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
-    & > div:nth-child(2) {
-      margin-top: 3px;
-    }
-  }
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: #ddd;
   
-`
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 0 0 10px 10px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+  @media (min-width: 768px) {
+	 
+	}
+`;
+
+
+export const Div_Editor_C_UseClipboard = styled.div
+` 
+  display: flex;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 2px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: 90px;
+  height: 36px;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  
+	@media (min-width: 768px) {
+	 
+	}
+`;
+
+
+export const Div_Editor_C_BackForward = styled.div
+` 
+  display: flex;
+  flex-direction: row;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 2px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: none;
+  
+  width: 90px;
+  height: 36px;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: static;
+  
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  
+	@media (min-width: 768px) {
+	 
+	}
+`;
