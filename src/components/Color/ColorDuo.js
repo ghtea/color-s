@@ -13,15 +13,18 @@ import * as actionsStatus from "../../store/actions/status";
 import * as config from '../../config';
 
 import Tiles from './_/Tiles';
+import Editor from './Editor';
 
 import IconHeart from '../../svgs/basic/IconHeart';
 
 import {
   Div_ColorDuo,
-  Div_TopLeft, Div_TopRight,
-  Div_ItemCurrent,
-  Div_Main, 
-  Div_Sub
+  Div_Main,
+  Div_Main_Left, Div_Main_Middle, Div_Main_Right,
+  
+  Div_Color, Div_Example,
+  
+  Div_Container
 } from './ColorDuo_Styled';
 
 
@@ -81,31 +84,34 @@ function ColorDuo({
     
     <Div_ColorDuo>
       
-      <Div_TopLeft> choose </Div_TopLeft>
-      
-      <Div_ItemCurrent> 
-      
-        <Div_Main
-          textHslaMain={textHslaMain}
-        >
-          <div onClick={(event)=>onClick_Chage_PositionCurrent(event, 'main')}> text </div>
-          <div onClick={(event)=>onClick_Chage_PositionCurrent(event, 'main')}> <IconHeart width={'30px'} height={'30px'} filled={true} textHsla={textHslaMain} /> </div>
-        </Div_Main>
+      <Div_Main> 
         
-        <Div_Sub
-          textHslaSub={textHslaSub}
-        > 
-          <div onClick={(event)=>onClick_Chage_PositionCurrent(event, 'sub')} />
-          <Tiles 
-            lengthOne={10}
-            widthAll={190}
-            heightAll={80}
-          />
-        </Div_Sub>
+        <Div_Main_Left> 
+          <button> copy </button>
+          <button> list </button>
+        </Div_Main_Left>
         
-      </Div_ItemCurrent>
+        <Div_Main_Middle> 
+          <Div_Color>
+            <div />
+            <div />
+          </Div_Color>
+          <Div_Example>
+            <div> texttttt texttttt </div>
+          </Div_Example>
+        </Div_Main_Middle>
+        
+        <Div_Main_Right> 
+          <button> icon </button>
+          <button> A+ </button>
+          <button> auto </button>
+        </Div_Main_Right>
       
-      <Div_TopRight> auto </Div_TopRight>
+      </Div_Main>
+      
+      <Div_Container>
+        <Editor />
+      </Div_Container>
       
     </Div_ColorDuo>
     
