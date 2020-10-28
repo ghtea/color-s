@@ -16,33 +16,33 @@ import Editor from './Editor';
 import List from './List';
 
 import {
-  Div_ColorSolo,
+  Div_ColorSeries,
   
   Div_Main,
   Div_Main_Left, Div_Main_Middle, Div_Main_Right,
-  Div_Color_Main,
+  
+  Div_ContainerColor, Div_Color_Main, Div_Color_Others,
   
   Div_Container
-} from './ColorSolo_Styled';
+} from './ColorSeries_Styled';
 
 
-function ColorSolo({
+function ColorSeries({
   
 }) {
   
-  const colorMain = useSelector( state => state.color.getIn(['solo', 'itemCurrent', 'main']), [] );
+  const colorMain = useSelector( state => state.color.getIn(['series', 'itemCurrent', '50']), [] );
   
   console.log(colorMain.toJS())
   /*
   const lengthListCard = useMemo( ()=> listCard.size , [listCard] );
   
   */
-  /*
-  const listCardOthers = useMemo(()=>{
-    const result = listCard.shift()
-    return result;
-  }, [listCard]);
-  */
+  
+  const listPosition = useMemo(()=>{
+    return (['00', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']);
+  }, []);
+  
   
   const dispatch = useDispatch();
   
@@ -76,7 +76,7 @@ function ColorSolo({
   
   return (
     
-    <Div_ColorSolo>
+    <Div_ColorSeries>
       
       <Div_Main> 
         
@@ -87,10 +87,38 @@ function ColorSolo({
         </Div_Main_Left>
         
         <Div_Main_Middle> 
-            <Div_Color_Main> main </Div_Color_Main>
+          <Div_ContainerColor>
+          {listPosition.map( (element, index)=>{
+            //console.log(`hi I'm ${element}`)
+            if (element ==='50'){
+              return (
+                <Div_Color_Main
+                  key={`Color-${index}`}
+                  postion={element}
+                  index={index}
+                />
+              )
+            }
+            else {
+              return (
+                <Div_Color_Others
+                  key={`Color-${index}`}
+                  postion={element}
+                  index={index}
+                />
+              )
+            }
+          })}
+            
+          </Div_ContainerColor>
+          
         </Div_Main_Middle>
         
         <Div_Main_Right> 
+          <button> A </button>
+          <button> B </button>
+          <button> C </button>
+          <button> D </button>
         </Div_Main_Right>
       
       </Div_Main>
@@ -100,10 +128,10 @@ function ColorSolo({
         <List />
       </Div_Container>
       
-    </Div_ColorSolo>
+    </Div_ColorSeries>
     
   )
 }
 
 
-export default ColorSolo;
+export default ColorSeries;

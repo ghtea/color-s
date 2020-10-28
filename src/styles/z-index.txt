@@ -8,3 +8,10 @@ main nav: 500
 button edit, more: 200
 
 editorL 100
+
+
+
+ColorSeries
+hovered: 2
+main : 1
+others : 0

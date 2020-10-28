@@ -7,6 +7,7 @@ import * as config from '../config';
 
 import ColorSolo from '../components/Color/ColorSolo';
 import ColorDuo from '../components/Color/ColorDuo';
+import ColorSeries from '../components/Color/ColorSeries';
 //import Heroes from "../components/Player/Heroes"
 
 
@@ -37,7 +38,7 @@ const Color = ({
     
       <Route path="/color/solo" component={ColorSolo} />
       <Route path="/color/duo" component={ColorDuo} />
-      <Route path="/color/series" component={ColorSolo} />
+      <Route path="/color/series" component={ColorSeries} />
       
     </Switch>
     

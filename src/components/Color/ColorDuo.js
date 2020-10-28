@@ -14,6 +14,7 @@ import * as config from '../../config';
 
 import Tiles from './_/Tiles';
 import Editor from './Editor';
+import List from './List';
 
 import IconHeart from '../../svgs/basic/IconHeart';
 
@@ -88,6 +89,7 @@ function ColorDuo({
         
         <Div_Main_Left> 
           <button> copy </button>
+          <button> save </button>
           <button> list </button>
         </Div_Main_Left>
         
@@ -111,6 +113,7 @@ function ColorDuo({
       
       <Div_Container>
         <Editor />
+        <List />
       </Div_Container>
       
     </Div_ColorDuo>

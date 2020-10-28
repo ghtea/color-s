@@ -7,32 +7,22 @@ export const Div_Template = styled.div
 ` 
   display: flex;
   flex-direction: column;   /* row */
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-evenly; align-items: center;
   flex-wrap: no-wrap;
   
   box-sizing: border-box;
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
   background-color: none;
   
-  width: 100%;
-  min-width: 100%;
-  max-width: 100%;
+  width: 100%; min-width: 100%; max-width: 100%;
   height: auto;
   font-size: 1rem;
   border-radius: 0px;
   
   position: static;
   
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
+  margin: 0px 0px 0px 0px; /* top right bottom left */
+  padding: 0px 0px 0px 0px; /* top right bottom left */
   
   
 	@media (min-width: 768px) {
