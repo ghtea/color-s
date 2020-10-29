@@ -6,9 +6,8 @@ import Immutable from 'immutable';
 export const Div_Template = styled.div
 ` 
   display: flex;
-  flex-direction: column;   /* row */
+  flex-flow: column nowrap;   /* row */
   justify-content: space-evenly; align-items: center;
-  flex-wrap: no-wrap;
   
   box-sizing: border-box;
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */

@@ -27,7 +27,11 @@ const stateInitial = fromJS({
       main: colorDefault,
       sub: colorDefaultSub
     },
-    listItem: []
+    listItem: [],
+    
+    contrast: {
+      ratio: 1
+    }
   },
   
   series: {

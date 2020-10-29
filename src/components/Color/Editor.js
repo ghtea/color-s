@@ -253,6 +253,7 @@ function Editor({
       
         <Div_Editor_A_ChangeMode
           onClick={(event)=>onChange_Option(event, 'mode')}
+          modeCurrent={modeCurrent}
         > 
           <div> HSL </div> 
           <div> RGB </div> 
@@ -272,22 +273,22 @@ function Editor({
         <Div_Editor_B_Element> 
           <div> H </div>
           <div> <input type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'h')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
-          <div> s </div>
+          <div> S </div>
           <div> <input type="range" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')} min="0" max="100" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 's')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
-          <div> l </div>
+          <div> L </div>
           <div> <input type="range" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')} min="0" max="100" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event,'hsl', 'l')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
       </>
       ) }
@@ -295,24 +296,24 @@ function Editor({
       { (modeCurrent === 'rgb') && (
       <>
         <Div_Editor_B_Element> 
-          <div> r </div>
+          <div> R </div>
           <div> <input type="range" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'r')} min="0" max="255" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'r')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
-          <div> g </div>
+          <div> G </div>
           <div> <input type="range" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'g')} min="0" max="255" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'g')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
-          <div> b </div>
+          <div> B </div>
           <div> <input type="range" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'b')} min="0" max="255" />  </div>
-          <div> input </div>
-          <div> arrows </div>
+          <div> <input type="text" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event,'rgb', 'b')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
         </Div_Editor_B_Element>
       </>
       ) }
