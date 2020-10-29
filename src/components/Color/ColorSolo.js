@@ -87,7 +87,9 @@ function ColorSolo({
         </Div_Main_Left>
         
         <Div_Main_Middle> 
-            <Div_Color_Main> main </Div_Color_Main>
+            <Div_Color_Main
+              textHsla={textHsla}
+            /> 
         </Div_Main_Middle>
         
         <Div_Main_Right> 

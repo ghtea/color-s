@@ -79,7 +79,7 @@ export const Div_Editor_A_ChangeMode = styled.div
 ` 
   display: flex;
   flex-direction: row;   /* row */
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: no-wrap;
   
@@ -104,10 +104,9 @@ export const Div_Editor_A_ChangeMode = styled.div
   padding-left: 0px;
   padding-right: 0px;
   
-  
-	@media (min-width: 768px) {
-	 
-	}
+  & > * {
+    width: 40%;
+  }
 `;
 
 
@@ -322,7 +321,7 @@ export const Div_Editor_C_BackForward = styled.div
 ` 
   display: flex;
   flex-direction: row;   /* row */
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: no-wrap;
   
@@ -347,8 +346,7 @@ export const Div_Editor_C_BackForward = styled.div
   padding-left: 0px;
   padding-right: 0px;
   
-  
-	@media (min-width: 768px) {
-	 
-	}
+  & > * {
+    width: 40%;
+  }
 `;

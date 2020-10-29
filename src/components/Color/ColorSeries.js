@@ -32,8 +32,9 @@ function ColorSeries({
 }) {
   
   const colorMain = useSelector( state => state.color.getIn(['series', 'itemCurrent', '50']), [] );
+  const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
-  console.log(colorMain.toJS())
+  //console.log(colorMain.toJS())
   /*
   const lengthListCard = useMemo( ()=> listCard.size , [listCard] );
   
@@ -52,7 +53,14 @@ function ColorSeries({
   }, [])
   
   /*
-  const onClick_Move = useCallback(
+  
+  // very useful library
+  // https://gka.github.io/chroma.js/
+  
+  // distance calculation method
+  // http://www2.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
+  
+  const onClick_Create = useCallback(
     (event, movement, indexCardNew) => {
       dispatch(actionsCard.return_CHANGE_CARD_FOCUSED({
         movement, 
@@ -63,7 +71,7 @@ function ColorSeries({
   );
   */
   
-  const textHsla = useMemo(()=>{
+  const textHslaMain = useMemo(()=>{
     
     const h = colorMain.getIn(['hsl', 'h']);
     const s = colorMain.getIn(['hsl', 's']);
@@ -96,6 +104,7 @@ function ColorSeries({
                   key={`Color-${index}`}
                   postion={element}
                   index={index}
+                  textHslaMain={textHslaMain}
                 />
               )
             }
@@ -115,6 +124,7 @@ function ColorSeries({
         </Div_Main_Middle>
         
         <Div_Main_Right> 
+          <div> magic </div>
           <button> A </button>
           <button> B </button>
           <button> C </button>

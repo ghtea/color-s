@@ -12,6 +12,6 @@ editorL 100
 
 
 ColorSeries
-hovered: 2
-main : 1
-others : 0
+hovered: 11
+main : 10
+others : 0 ~ 9

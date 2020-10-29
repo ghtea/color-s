@@ -35,6 +35,7 @@ function ColorDuo({
   
   const colorMain = useSelector( state => state.color.getIn(['duo', 'itemCurrent', 'main']), [] );
   const colorSub = useSelector( state => state.color.getIn(['duo', 'itemCurrent', 'sub']), [] );
+  const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   
   const dispatch = useDispatch();
@@ -94,13 +95,23 @@ function ColorDuo({
         </Div_Main_Left>
         
         <Div_Main_Middle> 
-          <Div_Color>
-            <div />
-            <div />
+        
+          <Div_Color 
+            textHslaMain={textHslaMain}
+            textHslaSub={textHslaSub}
+            positionCurrent={positionCurrent}
+          >
+            <div onClick={(event)=>onClick_Chage_PositionCurrent(event, 'main')}/>
+            <div onClick={(event)=>onClick_Chage_PositionCurrent(event, 'sub')}/>
           </Div_Color>
-          <Div_Example>
+          
+          <Div_Example
+            textHslaMain={textHslaMain}
+            textHslaSub={textHslaSub}
+          >
             <div> texttttt texttttt </div>
           </Div_Example>
+          
         </Div_Main_Middle>
         
         <Div_Main_Right> 

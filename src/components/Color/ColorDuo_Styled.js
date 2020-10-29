@@ -266,7 +266,15 @@ export const Div_Color = styled.div
 	& > div {
 	  width: 45%;
 	  height: 40px;
-	  background-color: blue;
+	  
+	}
+	& > div:nth-child(1){
+	  background-color: ${props => props.textHslaMain};
+	  ${props => (props.positionCurrent==='main') && `border: 3px solid #000;`}
+	}
+	& > div:nth-child(2){
+	  background-color: ${props => props.textHslaSub};
+	  ${props => (props.positionCurrent==='sub') && `border: 3px solid #000;`}
 	}
 `;
 
@@ -307,9 +315,18 @@ export const Div_Example = styled.div
 	}
 	
 	& > div {
+	  display: flex;
+    flex-direction: row;   /* row */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: no-wrap;
+  
 	  width: 100%;
 	  height: 100%;
-	  background-color: orange;
+	  color: ${props => props.textHslaMain};
+	  background-color: ${props => props.textHslaSub};
+	  
+	  font-size: 1.2rem;
 	}
 `;
 

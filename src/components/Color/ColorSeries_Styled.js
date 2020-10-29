@@ -51,11 +51,6 @@ export const Div_Main = styled.div
   padding-left: 0px;
   padding-right: 0px;
   
-  
-	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-	 
-	 
-	}
 	
 `;
 
@@ -152,11 +147,20 @@ export const Div_Main_Right = styled.div
   padding-left: 0px;
   padding-right: 0px;
   
+  & > div {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 0px;
+    border: 1px solid #333;
+  }
   
-	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-	 
-	 
-	}
+  & > button {
+    width: 40px;
+    height: 20px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
 	
 `;
 
@@ -244,7 +248,7 @@ export const Div_Color_Main = styled.div
   
   box-sizing: border-box;
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
-  background-color: ${props=>`hsl(255, 50%, ${props.index*8}%)`};
+  background-color: ${props=>props.textHslaMain};
   
   width: 100%;
   height: 100%;
@@ -253,11 +257,15 @@ export const Div_Color_Main = styled.div
   
   position: absolute;
   
-  z-index: 1;
+  z-index: 10;
   
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   
+  &:hover {
+    z-index: 11;
+    outline: 3px solid #fff;  /* border: 2px dashed #aaa; */
+  }
 `;
 
 export const Div_Color_Others = styled.div
@@ -278,12 +286,24 @@ export const Div_Color_Others = styled.div
   border-radius: 0px;
   
   position: absolute;
-  left: ${props=>(props.index - 5) * 50}%;
+  right: ${props=> -(props.index - 5) * 50}%;
   
-  z-index: 0;
+  z-index: ${ props=>{
+    if (props.index > 5){
+      return `${10 + 5-props.index}`
+    }
+    else {
+      return `${10 + props.index-5}`
+    }
+  }};
   
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
+  
+  &:hover {
+    z-index: 11;
+    outline: 3px solid #fff;  /* border: 2px dashed #aaa; */
+  }
   
 `;
 

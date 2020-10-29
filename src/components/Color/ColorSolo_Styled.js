@@ -15,9 +15,6 @@ export const Div_ColorSolo = styled.div
     margin-top: 20px;
   }
   
-	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-	 
-	}
 `;
 
 
@@ -208,7 +205,7 @@ export const Div_Color_Main = styled.div
   
   box-sizing: border-box;
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
-  background-color: red;
+  background-color: ${props => props.textHsla};
   
   width: calc(100% - 20px);
   height: calc(100% - 20px);
@@ -228,10 +225,6 @@ export const Div_Color_Main = styled.div
   padding-right: 0px;
   
   
-	@media (min-width:  ${props => props.theme.getIn(['media', 'sm_md']) }px) {
-	 
-	 
-	}
 	
 `;
 

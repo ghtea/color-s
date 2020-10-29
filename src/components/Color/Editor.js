@@ -45,6 +45,8 @@ function Editor({
   const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', 'mode']), [] );
+  //console.log(modeCurrent)
+  
   const isOpacityCurrent = useSelector( state => state.status.getIn(['current', 'color', 'opacity']), [] );
   
   const colorCurrent = useSelector( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
@@ -57,34 +59,40 @@ function Editor({
   
   useEffect(()=>{
     
-    let replacement = {
-      model: 'solo',
-      position: 'main'
-    };
-    
     if (location.pathname === '/color/solo') {
-      replacement = {
-        model: 'solo',
-        position: 'main'
-      }
-    }
-    else if (location.pathname === '/color/duo') {
-      replacement = {
-        model: 'duo',
-        position: 'main'
-      }
-    }
-    else if (location.pathname === '/color/series') {
-      replacement = {
-        model: 'series',
-        position: '50'
-      }
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'model'],
+        replacement: 'solo'
+      }) )
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'position'],
+        replacement: 'main'
+      }) )
     }
     
-    dispatch( actionsStatus.return_REPLACE_STATUS({
-      location: ['current', 'color'],
-      replacement: replacement
-    }) )
+    else if (location.pathname === '/color/duo') {
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'model'],
+        replacement: 'duo'
+      }) )
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'position'],
+        replacement: 'main'
+      }) )
+    }
+    
+    else if (location.pathname === '/color/series') {
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'model'],
+        replacement: 'series'
+      }) )
+      dispatch( actionsStatus.return_REPLACE_STATUS({
+        location: ['current', 'color', 'position'],
+        replacement: '50'
+      }) )
+    }
+  
+    
   }, [location])
   
   
@@ -242,36 +250,90 @@ function Editor({
     <Div_Editor>
       
       <Div_Editor_A>
-        <Div_Editor_A_ChangeMode> hsl vs rgb </Div_Editor_A_ChangeMode> 
-        <Div_Editor_A_ToggleOpacity> opacity: off </Div_Editor_A_ToggleOpacity> 
+      
+        <Div_Editor_A_ChangeMode
+          onClick={(event)=>onChange_Option(event, 'mode')}
+        > 
+          <div> HSL </div> 
+          <div> RGB </div> 
+        </Div_Editor_A_ChangeMode>
+        
+        <Div_Editor_A_ToggleOpacity
+          onClick={(event)=>onChange_Option(event, 'opacity')}
+          isOpacityCurrent={isOpacityCurrent}
+        > {isOpacityCurrent ? 'opacity: on' : 'opacity: off'} </Div_Editor_A_ToggleOpacity> 
+        
       </Div_Editor_A>
       
+      
       <Div_Editor_B>
+      { (modeCurrent === 'hsl') && (
+      <>
         <Div_Editor_B_Element> 
-          <div> h </div>
-          <div> slider </div>
+          <div> H </div>
+          <div> <input type="range" value={colorCurrent.getIn(['hsl', 'h'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'h')} min="0" max="360" />  </div>
           <div> input </div>
           <div> arrows </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
           <div> s </div>
-          <div> slider </div>
+          <div> <input type="range" value={colorCurrent.getIn(['hsl', 's'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 's')} min="0" max="100" />  </div>
           <div> input </div>
           <div> arrows </div>
         </Div_Editor_B_Element>
         
         <Div_Editor_B_Element> 
           <div> l </div>
-          <div> slider </div>
+          <div> <input type="range" value={colorCurrent.getIn(['hsl', 'l'])} onChange={(event)=>onChange_ColorElement(event, 'hsl', 'l')} min="0" max="100" />  </div>
           <div> input </div>
           <div> arrows </div>
         </Div_Editor_B_Element>
+      </>
+      ) }
+      
+      { (modeCurrent === 'rgb') && (
+      <>
+        <Div_Editor_B_Element> 
+          <div> r </div>
+          <div> <input type="range" value={colorCurrent.getIn(['rgb', 'r'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'r')} min="0" max="255" />  </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+        
+        <Div_Editor_B_Element> 
+          <div> g </div>
+          <div> <input type="range" value={colorCurrent.getIn(['rgb', 'g'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'g')} min="0" max="255" />  </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+        
+        <Div_Editor_B_Element> 
+          <div> b </div>
+          <div> <input type="range" value={colorCurrent.getIn(['rgb', 'b'])} onChange={(event)=>onChange_ColorElement(event, 'rgb', 'b')} min="0" max="255" />  </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+      </>
+      ) }
+      
+      { (isOpacityCurrent === true) &&
+        <Div_Editor_B_Element> 
+          <div> a </div>
+          <div> <input type="range" value={colorCurrent.getIn(['opacity'])} onChange={(event)=>onChange_ColorElement(event, 'opacity', undefined)} min="0" max="1" step='.05' /> </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+      }
       </Div_Editor_B>
+      
       
       <Div_Editor_C>
         <Div_Editor_C_UseClipboard> from clipboard </Div_Editor_C_UseClipboard> 
-        <Div_Editor_C_BackForward> back - foward </Div_Editor_C_BackForward>
+        <Div_Editor_C_BackForward> 
+          <div> {`<-`} </div> 
+          <div> {`->`} </div>  
+        </Div_Editor_C_BackForward>
       </Div_Editor_C>
       
     </Div_Editor>
