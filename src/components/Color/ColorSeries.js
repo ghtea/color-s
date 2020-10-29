@@ -60,6 +60,13 @@ function ColorSeries({
   // distance calculation method
   // http://www2.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
   
+  // example method of IBM
+  // https://uxplanet.org/designing-systematic-colors-b5d2605b15c
+  
+  // practical example 
+  // https://refactoringui.com/previews/building-your-color-palette/
+  
+  
   const onClick_Create = useCallback(
     (event, movement, indexCardNew) => {
       dispatch(actionsCard.return_CHANGE_CARD_FOCUSED({
