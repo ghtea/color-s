@@ -214,24 +214,61 @@ export const Div_ContainerColor = styled.div
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
   background-color: none;
   
-  width: 100%;
-  height: calc(100% - 100px);
+  width: 15%;
+  height: calc(100% - 20px);
   font-size: 1rem;
   border-radius: 0px;
   
   position: relative;
   overflow: visible;
   
-  margin: 0px 0px 0px 0px; /* top right bottom left */
-  padding: 0px 0px 0px 0px; /* top right bottom left */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  
   
 	@media (min-width: 768px) {
 	 
 	}
 `;
 
+export const Div_Color_Main = styled.div
+` 
+  display: flex;
+  flex-direction: column;   /* row */
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: no-wrap;
+  
+  box-sizing: border-box;
+  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  background-color: ${props=>props.textHslaMain};
+  
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  border-radius: 0px;
+  
+  position: absolute;
+  
+  z-index: 10;
+  
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  
+  &:hover {
+    z-index: 11;
+    outline: 3px solid #fff;  /* border: 2px dashed #aaa; */
+  }
+`;
 
-export const Div_Color = styled.div
+export const Div_Color_Others = styled.div
 ` 
   display: flex;
   flex-direction: column;   /* row */
@@ -243,18 +280,28 @@ export const Div_Color = styled.div
   border: 0px solid yellow;  /* border: 2px dashed #aaa; */
   background-color: ${props=>`hsl(255, 50%, ${props.index*9}%)`};
   
-  width: 9%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   font-size: 1rem;
   border-radius: 0px;
   
-  z-index: 1;
+  position: absolute;
+  right: ${props=> -(props.index - 5) * 50}%;
+  
+  z-index: ${ props=>{
+    if (props.index > 5){
+      return `${10 + 5-props.index}`
+    }
+    else {
+      return `${10 + props.index-5}`
+    }
+  }};
   
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   
   &:hover {
-    z-index: 2;
+    z-index: 11;
     outline: 3px solid #fff;  /* border: 2px dashed #aaa; */
   }
   

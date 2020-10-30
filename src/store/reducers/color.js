@@ -38,6 +38,7 @@ const stateInitial = fromJS({
     itemCurrent: {
       _id: 'default',
       
+      hue: 0,
       '00': colorDefault,
       '10': colorDefault,
       '20': colorDefault,

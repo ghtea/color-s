@@ -7,7 +7,6 @@ import axios from 'axios';
 import {useSelector, useDispatch} from "react-redux";
 import Immutable, {toJS, fromJS} from 'immutable';
 
-import getContrast from 'get-contrast';
 import acColors from "ac-colors";
 import colorlab from 'colorlab';
 
@@ -16,7 +15,7 @@ import * as actionsColor from "../../store/actions/color";
 import * as config from '../../config';
 
 import Tiles from './_/Tiles';
-import EditorCs from './ColorSeries/EditorCs';
+import Editor from './Editor';
 import List from './List';
 
 import {
@@ -25,7 +24,7 @@ import {
   Div_Main,
   Div_Main_Left, Div_Main_Middle, Div_Main_Right,
   
-  Div_ContainerColor, Div_Color,
+  Div_ContainerColor, Div_Color_Main, Div_Color_Others,
   
   Div_Container
 } from './ColorSeries_Styled';
@@ -35,10 +34,8 @@ function ColorSeries({
   
 }) {
   
-  const hueCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'hue']), [] );
-  
-  const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
-  //const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
+  const colorMain = useSelector( state => state.color.getIn(['series', 'itemCurrent', '50']), [] );
+  const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   //console.log(colorMain.toJS())
   /*
@@ -47,7 +44,7 @@ function ColorSeries({
   */
   
   const listPosition = useMemo(()=>{
-    return (['10', '20', '30', '40', '50', '60', '70', '80', '90', '100']);
+    return (['00', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']);
   }, []);
   
   
@@ -56,43 +53,10 @@ function ColorSeries({
   
   useEffect(()=>{
     
-    // 10
-    for (var changeSaturation = -25; changeSaturation <= 25; changeSaturation++){
-      if ( (0+changeSaturation) > 100 || (0+changeSaturation) < 0) {
-        continue;
-      }
-      
-      for (var changeLightness = -25; changeLightness <= 25; changeLightness++){
-        if ( (100+changeLightness) > 100 || (100+changeLightness) < 0) {
-          continue;
-        }
-        
-        const listHsl = [hueCurrent, 0+changeSaturation, 100+changeLightness];
-        
-        const contrast = getContrast.ratio(`hsl(${hueCurrent}, ${listHsl[1]}%, ${listHsl[2]}%)`, '#fff');
-        console.log(`contrast: ${contrast}`);
-        
-        
-        const color_acColors = new acColors({"color":listHsl, "type":"hsl"});
-        const listLab = color_acColors.lab;
+    const h = colorMain.getIn(['hsl', 'h']);
+    const s = colorMain.getIn(['hsl', 's']);
+    const l = colorMain.getIn(['hsl', 'l']);
     
-        let color_colorLab = new colorlab.CIELAB(...listLab);
-        const white_colorLab = new colorlab.CIELAB(100, 0, 0);
-        const black_colorLab = new colorlab.CIELAB(0, 0, 0);
-        
-        const diff_white = colorlab.CIEDE2000(color_colorLab, white_colorLab);
-        const diff_black = colorlab.CIEDE2000(color_colorLab, black_colorLab);
-        
-        
-        console.log(`diff_white: ${diff_white}`);
-      }
-    }
-    
-    
-    
-    
-    
-    /*
     const color_acColors = new acColors({"color":[h,s,l], "type":"hsl"});
     const listLab = color_acColors.lab;
     //console.log(listLab)
@@ -117,9 +81,8 @@ function ColorSeries({
     
     const stageCurrent = diff_white / gapOneTemp;
     console.log(`stageCurrent: ${stageCurrent}`);
-    */
-  }, [hueCurrent])
-  
+    
+  }, [colorMain])
   
   /*
   
@@ -140,8 +103,7 @@ function ColorSeries({
   // https://github.com/Qix-/color-convert
   // https://github.com/vinaypillai/ac-colors
   
-  // calculate contrast
-  // https://github.com/johno/get-contrast
+  
   
   final all 
   1. convert hsl to lab   <- libaray 'ac-colors'
@@ -159,17 +121,15 @@ function ColorSeries({
   );
   */
   
-  const returnTextHsla  = useCallback(
-    (event, position) => {
-      const h = itemCurrent.getIn([position, 'hsl', 'h']);
-      const s = itemCurrent.getIn([position, 'hsl', 's']);
-      const l = itemCurrent.getIn([position, 'hsl', 'l']);
-      const opacity = itemCurrent.getIn([position, 'opacity']);
-      
-      return `hsla(${h}, ${s}%, ${l}%, ${opacity})`
-    },
-    [itemCurrent]
-  );
+  const textHslaMain = useMemo(()=>{
+    
+    const h = colorMain.getIn(['hsl', 'h']);
+    const s = colorMain.getIn(['hsl', 's']);
+    const l = colorMain.getIn(['hsl', 'l']);
+    const opacity = colorMain.getIn(['opacity']);
+    
+    return `hsla(${h}, ${s}%, ${l}%, ${opacity})`
+  }, [colorMain]);
   
   
   return (
@@ -187,16 +147,30 @@ function ColorSeries({
         <Div_Main_Middle> 
           <Div_ContainerColor>
           {listPosition.map( (element, index)=>{
+            //console.log(`hi I'm ${element}`)
+            if (element ==='50'){
               return (
-                <Div_Color
+                <Div_Color_Main
                   key={`Color-${index}`}
                   postion={element}
                   index={index}
-                  textHsla={returnTextHsla(element)}
+                  textHslaMain={textHslaMain}
                 />
               )
-            })}
+            }
+            else {
+              return (
+                <Div_Color_Others
+                  key={`Color-${index}`}
+                  postion={element}
+                  index={index}
+                />
+              )
+            }
+          })}
+            
           </Div_ContainerColor>
+          
         </Div_Main_Middle>
         
         <Div_Main_Right> 
@@ -210,7 +184,7 @@ function ColorSeries({
       </Div_Main>
       
       <Div_Container>
-        <EditorCs />
+        <Editor />
         <List />
       </Div_Container>
       
