@@ -7,6 +7,9 @@ import axios from 'axios';
 import {useSelector, useDispatch} from "react-redux";
 import Immutable, {toJS, fromJS} from 'immutable';
 
+import acColors from "ac-colors";
+import colorlab from 'colorlab';
+
 import * as actionsColor from "../../store/actions/color";
 
 import * as config from '../../config';
@@ -50,22 +53,62 @@ function ColorSeries({
   
   useEffect(()=>{
     
-  }, [])
+    const h = colorMain.getIn(['hsl', 'h']);
+    const s = colorMain.getIn(['hsl', 's']);
+    const l = colorMain.getIn(['hsl', 'l']);
+    
+    const color_acColors = new acColors({"color":[h,s,l], "type":"hsl"});
+    const listLab = color_acColors.lab;
+    //console.log(listLab)
+    
+    let color_colorLab = new colorlab.CIELAB(...listLab);
+    const white_colorLab = new colorlab.CIELAB(100, 0, 0);
+    const black_colorLab = new colorlab.CIELAB(0, 0, 0);
+    
+    const diff_white = colorlab.CIEDE2000(color_colorLab, white_colorLab);
+    const diff_black = colorlab.CIEDE2000(color_colorLab, black_colorLab);
+    
+    console.log('differences')
+    console.log(`vs white: ${diff_white}`);
+    console.log(`vs black: ${diff_black}`);
+    console.log(`white > black: ${- diff_white + diff_black}`);
+    
+    
+    console.log(`vs white + vs black: ${ diff_white + diff_black}`);
+    const gapAll = diff_white + diff_black;
+    const gapOneTemp = gapAll / 11; 
+    console.log(`gapOneTemp: ${gapOneTemp}`);
+    
+    const stageCurrent = diff_white / gapOneTemp;
+    console.log(`stageCurrent: ${stageCurrent}`);
+    
+  }, [colorMain])
   
   /*
   
   // very useful library
   // https://gka.github.io/chroma.js/
   
-  // distance calculation method
-  // http://www2.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf
   
-  // example method of IBM
+  
+  // great tutorials !!!
   // https://uxplanet.org/designing-systematic-colors-b5d2605b15c
-  
-  // practical example 
   // https://refactoringui.com/previews/building-your-color-palette/
   
+  
+  // calcuate js libary
+  // https://github.com/signalwerk/colorlab
+  
+  // convert colors
+  // https://github.com/Qix-/color-convert
+  // https://github.com/vinaypillai/ac-colors
+  
+  
+  
+  final all 
+  1. convert hsl to lab   <- libaray 'ac-colors'
+  2. calculate difference fo [color, white] and [color, black]   <- library 'colorlab'
+  3. decide stage (10, 20, ..., 100)
   
   const onClick_Create = useCallback(
     (event, movement, indexCardNew) => {
