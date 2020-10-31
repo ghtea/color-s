@@ -23,10 +23,22 @@ const stateInitial = fromJS({
   current: {
     
     color: {    // 주의! 각 페이지에서 Editor 
-      model: 'solo',   // solo, duo, series
-      position: 'main',   //  main, sub, 00, 10, 20, ..., 100 
-      mode: 'hsl', // 'rgb'
-      opacity: false 
+    
+      solo: {
+        position: 'main',
+        mode: 'hsl',
+        opacity: false 
+      },
+      
+      duo: {
+        position: 'main',
+        mode: 'hsl'
+      },
+      
+      series: {
+        position: '10'
+      }
+
     }
     
   },

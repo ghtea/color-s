@@ -35,7 +35,7 @@ import useInput from '../../../tools/hooks/useInput';
 
 
 function EditorCs({
-  
+  modelCurrent
 }) {
   
   const location = useLocation();

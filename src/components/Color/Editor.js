@@ -35,13 +35,13 @@ import useInput from '../../tools/hooks/useInput';
 
 
 function Editor({
-  
+  modelCurrent
 }) {
   
   const location = useLocation();
   //console.log(location)
   
-  const modelCurrent = useSelector( state => state.status.getIn(['current', 'color', 'model']), [] );
+  //const modelCurrent = useSelector( state => state.status.getIn(['current', 'color', 'model']), [] );
   const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', 'mode']), [] );

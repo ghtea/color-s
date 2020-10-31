@@ -98,7 +98,9 @@ function ColorSolo({
       </Div_Main>
       
       <Div_Container>
-        <Editor />
+        <Editor 
+          modelCurrent={'solo'}
+        />
         <List />
       </Div_Container>
       

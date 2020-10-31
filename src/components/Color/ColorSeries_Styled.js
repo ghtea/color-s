@@ -241,7 +241,7 @@ export const Div_Color = styled.div
   
   box-sizing: border-box;
   border: 0px solid yellow;  /* border: 2px dashed #aaa; */
-  background-color: ${props=>`hsl(255, 50%, ${props.index*9}%)`};
+  background-color: ${props=>props.textHsla};
   
   width: 9%;
   height: 100%;

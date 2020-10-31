@@ -57,6 +57,7 @@ function ColorSeries({
   useEffect(()=>{
     
     // 10
+    let listColor = [];
     for (var changeSaturation = -25; changeSaturation <= 25; changeSaturation++){
       if ( (0+changeSaturation) > 100 || (0+changeSaturation) < 0) {
         continue;
@@ -67,59 +68,62 @@ function ColorSeries({
           continue;
         }
         
-        const listHsl = [hueCurrent, 0+changeSaturation, 100+changeLightness];
+        const listHslWhite = [hueCurrent, 0, 100];
+        const listHslTesting = [hueCurrent, listHslWhite[1]+changeSaturation, listHslWhite[2]+changeLightness];
         
-        const contrast = getContrast.ratio(`hsl(${hueCurrent}, ${listHsl[1]}%, ${listHsl[2]}%)`, '#fff');
+        // 21 = 1.32 를 11번 곱한것
+        const contrast = getContrast.ratio(`hsl(${hueCurrent}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, '#fff');
         console.log(`contrast: ${contrast}`);
         
-        
-        const color_acColors = new acColors({"color":listHsl, "type":"hsl"});
-        const listLab = color_acColors.lab;
+        const colorTesting_acColors = new acColors({"color":listHslTesting, "type":"hsl"});
+        const listLabTesting = colorTesting_acColors.lab;
     
-        let color_colorLab = new colorlab.CIELAB(...listLab);
+        const colorTesting_colorLab = new colorlab.CIELAB(...listLabTesting);
         const white_colorLab = new colorlab.CIELAB(100, 0, 0);
         const black_colorLab = new colorlab.CIELAB(0, 0, 0);
         
-        const diff_white = colorlab.CIEDE2000(color_colorLab, white_colorLab);
-        const diff_black = colorlab.CIEDE2000(color_colorLab, black_colorLab);
-        
+        const diff_white = colorlab.CIEDE2000(colorTesting_colorLab, white_colorLab);
+        const diff_black = colorlab.CIEDE2000(colorTesting_colorLab, black_colorLab);
         
         console.log(`diff_white: ${diff_white}`);
+        
+        const color = {
+          listHsl: listHslTesting,
+          listLab: listLabTesting,
+          contrast: contrast,
+          difference: diff_white
+        }
+        console.log(color);
+        listColor.push(color);
       }
+    
     }
     
+    const contrastGoal = 1.32;
+    const differenceGoal = 9.09;
+    const colorClosest = listColor.reduce(function(previous, current) {
+      
+      const errorPrevious = Math.pow((previous.contrast - contrastGoal)/contrastGoal, 2) + Math.pow((previous.difference - differenceGoal)/differenceGoal, 2)
+      const errorCurrent = Math.pow((current.contrast - contrastGoal)/contrastGoal, 2) + Math.pow((current.difference - differenceGoal)/differenceGoal, 2)
+      
+      return ( errorCurrent<errorPrevious  ? current : previous);
+    });
     
+    console.log('colorClosest');
+    console.log(colorClosest);
     
-    
-    
-    /*
-    const color_acColors = new acColors({"color":[h,s,l], "type":"hsl"});
-    const listLab = color_acColors.lab;
-    //console.log(listLab)
-    
-    let color_colorLab = new colorlab.CIELAB(...listLab);
-    const white_colorLab = new colorlab.CIELAB(100, 0, 0);
-    const black_colorLab = new colorlab.CIELAB(0, 0, 0);
-    
-    const diff_white = colorlab.CIEDE2000(color_colorLab, white_colorLab);
-    const diff_black = colorlab.CIEDE2000(color_colorLab, black_colorLab);
-    
-    console.log('differences')
-    console.log(`vs white: ${diff_white}`);
-    console.log(`vs black: ${diff_black}`);
-    console.log(`white > black: ${- diff_white + diff_black}`);
-    
-    
-    console.log(`vs white + vs black: ${ diff_white + diff_black}`);
-    const gapAll = diff_white + diff_black;
-    const gapOneTemp = gapAll / 11; 
-    console.log(`gapOneTemp: ${gapOneTemp}`);
-    
-    const stageCurrent = diff_white / gapOneTemp;
-    console.log(`stageCurrent: ${stageCurrent}`);
-    */
+    dispatch( actionsColor.return_REPLACE_COLOR({
+      location: ['series', 'itemCurrent', '10', 'hsl'],
+      replacement: {
+        h: colorClosest.listHsl[0],
+        s: colorClosest.listHsl[1],
+        l: colorClosest.listHsl[2]
+      }
+    }) )
+        
   }, [hueCurrent])
   
+    
   
   /*
   
@@ -160,7 +164,7 @@ function ColorSeries({
   */
   
   const returnTextHsla  = useCallback(
-    (event, position) => {
+    (position) => {
       const h = itemCurrent.getIn([position, 'hsl', 'h']);
       const s = itemCurrent.getIn([position, 'hsl', 's']);
       const l = itemCurrent.getIn([position, 'hsl', 'l']);
@@ -210,7 +214,9 @@ function ColorSeries({
       </Div_Main>
       
       <Div_Container>
-        <EditorCs />
+        <EditorCs 
+          modelCurrent={'series'}
+        />
         <List />
       </Div_Container>
       

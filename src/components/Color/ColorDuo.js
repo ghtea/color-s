@@ -159,7 +159,9 @@ function ColorDuo({
       </Div_Main>
       
       <Div_Container>
-        <Editor />
+        <Editor 
+          modelCurrent={'duo'}  
+        />
         <List />
       </Div_Container>
       
