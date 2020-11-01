@@ -42,7 +42,7 @@ function EditorCs({
   //console.log(location)
   
   
-  const hueCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'hue']), [] );
+  
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
   
   
@@ -62,11 +62,11 @@ function EditorCs({
   
 
   
-  const onChange_Hue = useCallback(
-    (event) => {
+  const onChange_White = useCallback(
+    (event, element) => {
       
       dispatch( actionsColor.return_REPLACE_COLOR({
-        location: ['series', 'itemCurrent', 'hue'],
+        location: ['series', 'itemCurrent', 'white', 'hsl', element],
         replacement: Math.round(event.target.value * 10)/10
       }) )
         
@@ -76,7 +76,7 @@ function EditorCs({
   
   
   const onClick_AdjustColorElement = useCallback(
-    (event, mode, element, max, min, unit) => {
+    (event, mode='hsl', element, max, min, unit) => {
       
       if (mode==='hsl'){
         
@@ -85,14 +85,14 @@ function EditorCs({
         if (replacement < min){ replacement = min } 
         
         dispatch( actionsColor.return_REPLACE_COLOR({
-          location: ['series', 'itemCurrent', 'hue'],
+          location: ['series', 'itemCurrent', 'white', mode, element],
           replacement: replacement
         }) )
         
       }
       
     },
-    [hueCurrent]
+    [itemCurrent]
   );
   
   
@@ -120,13 +120,19 @@ function EditorCs({
       
       <Div_EditorCs_B>
       
-        <Div_EditorCs_B_Element> 
+        <Div_Editor_B_Element> 
           <div> H </div>
-          <div> <input type="range" value={hueCurrent} onChange={(event)=>onChange_Hue(event)} min="0" max="360" />  </div>
-          <div> <input type="text" value={hueCurrent} onChange={(event)=>onChange_Hue(event)} /> </div>
+          <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} min="0" max="360" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
-        </Div_EditorCs_B_Element>
-      
+        </Div_Editor_B_Element>
+        
+        <Div_Editor_B_Element> 
+          <div> S </div>
+          <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} min="0" max="100" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
+        </Div_Editor_B_Element>
       
       </Div_EditorCs_B>
       

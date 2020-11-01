@@ -23,7 +23,9 @@ const stateInitial = fromJS({
   current: {
     
     color: {    // 주의! 각 페이지에서 Editor 
-    
+      
+      model: 'solo',
+      
       solo: {
         position: 'main',
         mode: 'hsl',

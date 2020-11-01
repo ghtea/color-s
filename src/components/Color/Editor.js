@@ -41,13 +41,11 @@ function Editor({
   const location = useLocation();
   //console.log(location)
   
-  //const modelCurrent = useSelector( state => state.status.getIn(['current', 'color', 'model']), [] );
-  const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
-  
-  const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', 'mode']), [] );
+  const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', modelCurrent, 'position']), [] );
+  const modeCurrent = useSelector( state => state.status.getIn(['current', 'color', modelCurrent, 'mode']), [] );
   //console.log(modeCurrent)
   
-  const isOpacityCurrent = useSelector( state => state.status.getIn(['current', 'color', 'opacity']), [] );
+  // const isOpacityCurrent = useSelector( state => state.status.getIn(['current', 'color', 'opacity']), [] );
   
   const colorCurrent = useSelector( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
   
@@ -56,44 +54,6 @@ function Editor({
   
   
   //const [mode, setMode] = useState('opaque'); // opaque transparent     
-  
-  useEffect(()=>{
-    
-    if (location.pathname === '/color/solo') {
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'model'],
-        replacement: 'solo'
-      }) )
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'position'],
-        replacement: 'main'
-      }) )
-    }
-    
-    else if (location.pathname === '/color/duo') {
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'model'],
-        replacement: 'duo'
-      }) )
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'position'],
-        replacement: 'main'
-      }) )
-    }
-    
-    else if (location.pathname === '/color/series') {
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'model'],
-        replacement: 'series'
-      }) )
-      dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', 'position'],
-        replacement: '50'
-      }) )
-    }
-  
-    
-  }, [location])
   
   
   
@@ -119,7 +79,7 @@ function Editor({
       }
         
       dispatch( actionsStatus.return_REPLACE_STATUS({
-        location: ['current', 'color', option],
+        location: ['current', 'color', modelCurrent, option],
         replacement: replacement
       }) )
       
@@ -259,11 +219,6 @@ function Editor({
           <div> RGB </div> 
         </Div_Editor_A_ChangeMode>
         
-        <Div_Editor_A_ToggleOpacity
-          onClick={(event)=>onChange_Option(event, 'opacity')}
-          isOpacityCurrent={isOpacityCurrent}
-        > {isOpacityCurrent ? 'opacity: on' : 'opacity: off'} </Div_Editor_A_ToggleOpacity> 
-        
       </Div_Editor_A>
       
       
@@ -318,14 +273,6 @@ function Editor({
       </>
       ) }
       
-      { (isOpacityCurrent === true) &&
-        <Div_Editor_B_Element> 
-          <div> a </div>
-          <div> <input type="range" value={colorCurrent.getIn(['opacity'])} onChange={(event)=>onChange_ColorElement(event, 'opacity', undefined)} min="0" max="1" step='.05' /> </div>
-          <div> input </div>
-          <div> arrows </div>
-        </Div_Editor_B_Element>
-      }
       </Div_Editor_B>
       
       
@@ -347,6 +294,28 @@ function Editor({
 
 
 export default Editor;
+
+
+
+/*
+
+        <Div_Editor_A_ToggleOpacity
+          onClick={(event)=>onChange_Option(event, 'opacity')}
+          isOpacityCurrent={isOpacityCurrent}
+        > {isOpacityCurrent ? 'opacity: on' : 'opacity: off'} </Div_Editor_A_ToggleOpacity> 
+        
+        
+        
+      { (isOpacityCurrent === true) &&
+        <Div_Editor_B_Element> 
+          <div> a </div>
+          <div> <input type="range" value={colorCurrent.getIn(['opacity'])} onChange={(event)=>onChange_ColorElement(event, 'opacity', undefined)} min="0" max="1" step='.05' /> </div>
+          <div> input </div>
+          <div> arrows </div>
+        </Div_Editor_B_Element>
+      }
+*/
+
 
 /*
 
