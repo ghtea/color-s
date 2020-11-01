@@ -10,12 +10,11 @@ import convertRgbToHsl from './spreadRgb/convertRgbToHsl'
 
 function* spreadRgb(action) {
   
+  //const modelCurrent = yield select( state => state.status.getIn(['current', 'color', 'model']), [] );
+  //const positionCurrent = yield select( state => state.status.getIn(['current', 'color', 'position']), [] );
   
-  const modelCurrent = yield select( state => state.status.getIn(['current', 'color', 'model']), [] );
-  const positionCurrent = yield select( state => state.status.getIn(['current', 'color', 'position']), [] );
-  
-  const colorCurrent = yield select( state => state.color.getIn([modelCurrent, 'itemCurrent', positionCurrent]), [] );
-  
+  const colorCurrent = yield select( state => state.color.getIn(action.payload.location), [] );
+
   const numberR = colorCurrent.getIn(['rgb', 'r']);
   const numberG = colorCurrent.getIn(['rgb', 'g']);
   const numberB = colorCurrent.getIn(['rgb', 'b']);
@@ -23,7 +22,7 @@ function* spreadRgb(action) {
 	const {numberH, numberS, numberL} = convertRgbToHsl(numberR, numberG, numberB);
 	
 	yield put( actionsColor.return_REPLACE_COLOR({
-    location: [ modelCurrent, 'itemCurrent', positionCurrent, 'hsl'],
+    location: [...action.payload.location, 'hsl'],
     replacement: {h: numberH, s: numberS, l: numberL}
 	}) );
 	

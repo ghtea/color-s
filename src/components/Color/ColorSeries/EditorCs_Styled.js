@@ -98,31 +98,11 @@ export const Div_EditorCs_Tool = styled.div
 `;
 
 
-export const Div_EditorCs_A_ChangeMode = styled(Div_EditorCs_Tool)
+export const Div_EditorCs_A_MakeSeries = styled(Div_EditorCs_Tool)
 ` 
-  border: 0px solid #aaa;
-  background-color: #eee;
   
-  & > * {
-    width: 40%;
-  }
-  & > *:nth-child(1){
-	  ${props => (props.modeCurrent==='hsl') && `
-	    background-color: #fff;
-	  `}
-	}
-	& > *:nth-child(2){
-	  ${props => (props.modeCurrent==='rgb') && `
-	    background-color: #fff;
-	  `}
-	}
 `;
 
-
-export const Div_EditorCs_A_ToggleOpacity = styled(Div_EditorCs_Tool)
-` 
-
-`;
 
 
 

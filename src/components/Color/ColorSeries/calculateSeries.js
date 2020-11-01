@@ -13,8 +13,8 @@ const calculateOne = (listHslExisting, direction, position, index) => {
   const listLabExisting = colorExisting_acColors.lab;
   const colorExisting_colorLab = new colorlab.CIELAB(...listLabExisting);
   
-  const colorWhite_colorLab = new colorlab.CIELAB([100, 0, 0]);
-  const colorBlack_colorLab = new colorlab.CIELAB([0, 0, 0]);
+  const colorWhite_colorLab = new colorlab.CIELAB(100, 0, 0);
+  const colorBlack_colorLab = new colorlab.CIELAB(0, 0, 0);
   
   for (var changeSaturation = -25; changeSaturation <= 25; changeSaturation++){
     if ( (0+changeSaturation) > 100 || (0+changeSaturation) < 0) {
@@ -125,18 +125,21 @@ const calculateOne = (listHslExisting, direction, position, index) => {
 
 const calculateSeries = async (listHslWhite) => {
 	
+	console.log('listHslWhite');
+	console.log(listHslWhite);
+	
 	let listColor = [];
 	
 	const listHsl10 = await calculateOne(listHslWhite, 'up', '10', 1);
   const listHsl20 = await calculateOne(listHsl10, 'up', '20', 2);
   const listHsl30 = await calculateOne(listHsl20, 'up', '30', 3);
   const listHsl40 = await calculateOne(listHsl30, 'up', '40', 4);
-  const listHsl50 = await calculateOne(listHsl30, 'up', '50', 5);
-  const listHsl60 = await calculateOne(listHsl40, 'up', '60', 6);
-  const listHsl70 = await calculateOne(listHsl50, 'up', '70', 7);
-  const listHsl80 = await calculateOne(listHsl60, 'up', '80', 8);
-  const listHsl90 = await calculateOne(listHsl70, 'up', '90', 9);
-  const listHsl100 = await calculateOne(listHsl80, 'up', '100', 10);
+  const listHsl50 = await calculateOne(listHsl40, 'up', '50', 5);
+  const listHsl60 = await calculateOne(listHsl50, 'up', '60', 6);
+  const listHsl70 = await calculateOne(listHsl60, 'up', '70', 7);
+  const listHsl80 = await calculateOne(listHsl70, 'up', '80', 8);
+  const listHsl90 = await calculateOne(listHsl80, 'up', '90', 9);
+  const listHsl100 = await calculateOne(listHsl90, 'up', '100', 10);
   
   return [
     listHsl10, 

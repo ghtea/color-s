@@ -34,4 +34,40 @@ export const colorDefaultSub = {
 	opacity: 1
 };
 
+
+export const colorDefaultWhite = {
+	
+	hsl: {
+		h: 0,
+		s: 0,
+		l: 100
+	},
+	
+	rgb: {
+		r: 255,
+		g: 255,
+		b: 255
+	},
+	
+	opacity: 1
+};
+
+
+export const colorDefaultBlack = {
+	
+	hsl: {
+		h: 0,
+		s: 0,
+		l: 0
+	},
+	
+	rgb: {
+		r: 0,
+		g: 0,
+		b: 0
+	},
+	
+	opacity: 1
+};
+
 export default colorDefault;

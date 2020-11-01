@@ -86,7 +86,7 @@ function Editor({
       }) )
       
     },
-    [modeCurrent, isOpacityCurrent]
+    [modeCurrent]
   );
   
   
@@ -97,14 +97,18 @@ function Editor({
           location: [modelCurrent, 'itemCurrent', positionCurrent, mode, element],
           replacement: Math.round(event.target.value * 10)/10
         }) )
-        dispatch( actionsColor.return_SPREAD_HSL( ) );
+        dispatch( actionsColor.return_SPREAD_HSL({
+          location: [modelCurrent, 'itemCurrent', positionCurrent]
+        }) );
       }
       else if (mode==='rgb'){
         dispatch( actionsColor.return_REPLACE_COLOR({
           location: [modelCurrent, 'itemCurrent', positionCurrent, mode, element],
           replacement: Math.round(event.target.value)
         }) )
-        dispatch( actionsColor.return_SPREAD_RGB( ) );
+        dispatch( actionsColor.return_SPREAD_RGB({
+          location: [modelCurrent, 'itemCurrent', positionCurrent]
+        }) );
       }
       else if (mode==='opacity'){
         dispatch( actionsColor.return_REPLACE_COLOR({
@@ -130,7 +134,9 @@ function Editor({
           replacement: replacement
         }) )
         
-        dispatch( actionsColor.return_SPREAD_HSL( ) );
+        dispatch( actionsColor.return_SPREAD_HSL({
+          location: [modelCurrent, 'itemCurrent', positionCurrent]
+        }) );
       }
       else if (mode==='rgb'){
         const existing = colorCurrent.getIn([mode, element]);
@@ -142,7 +148,9 @@ function Editor({
           location: [modelCurrent, 'itemCurrent', positionCurrent, mode, element],
           replacement: replacement
         }) )
-        dispatch( actionsColor.return_SPREAD_RGB( ) );
+        dispatch( actionsColor.return_SPREAD_RGB({
+          location: [modelCurrent, 'itemCurrent', positionCurrent]
+        }) );
       }
       else if (mode==='opacity'){
         const existing = colorCurrent.getIn([mode]);

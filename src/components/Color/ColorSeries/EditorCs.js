@@ -24,10 +24,12 @@ import {
   Div_EditorCs, 
   Div_EditorCs_A, Div_EditorCs_B, Div_EditorCs_C,
   
-  Div_EditorCs_A_ChangeMode, Div_EditorCs_A_ToggleOpacity,
+  Div_EditorCs_A_MakeSeries, 
   Div_EditorCs_B_Element,
   Div_EditorCs_C_UseClipboard, Div_EditorCs_C_BackForward
 } from './EditorCs_Styled'
+
+import calculateSeries from './calculateSeries';
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../../tools/hooks/useInput';
@@ -57,8 +59,13 @@ function EditorCs({
       location: ['current', 'color', 'model'],
       replacement: 'series'
     }) )
+    
+    dispatch( actionsColor.return_REPLACE_COLOR({
+      location: ['series', 'itemCurrent', 'white', 'hsl', 'l'],
+      replacement: 100
+    }) )
      
-  }, [location])
+  }, [])
   
 
   
@@ -69,7 +76,8 @@ function EditorCs({
         location: ['series', 'itemCurrent', 'white', 'hsl', element],
         replacement: Math.round(event.target.value * 10)/10
       }) )
-        
+      
+      
     },
     []
   );
@@ -80,7 +88,7 @@ function EditorCs({
       
       if (mode==='hsl'){
         
-        let replacement = hueCurrent + unit;
+        let replacement = itemCurrent.getIn(['white', mode, element]) + unit;
         if (replacement > max){ replacement = max } 
         if (replacement < min){ replacement = min } 
         
@@ -96,6 +104,39 @@ function EditorCs({
   );
   
   
+  
+  const onClick_MakeSeries  = useCallback(
+    async () => {
+      
+      //const colorWhite = itemCurrent.getIn(['white']);
+      const listHslWhite = [itemCurrent.getIn(['white', 'hsl', 'h']), itemCurrent.getIn(['white', 'hsl', 's']), itemCurrent.getIn(['white', 'hsl', 'l'])];
+      
+      const listColorHsl = await calculateSeries(listHslWhite);
+      
+      const obj = {};
+      for (var iColor = 0; iColor < 10; iColor++) {
+        
+        const position = ((iColor+1)*10).toString(); 
+        
+        const replacement = {
+      		h: listColorHsl[iColor][0],
+      		s: listColorHsl[iColor][1],
+      		l: listColorHsl[iColor][2]
+        };
+        
+        dispatch( actionsColor.return_REPLACE_COLOR({
+          location: ['series', 'itemCurrent', position, 'hsl'],
+          replacement: replacement
+        }) );
+        
+        dispatch( actionsColor.return_SPREAD_HSL({
+          location: ['series', 'itemCurrent', position]
+        }) );
+      }
+      
+    },
+    []
+  );
   
   /*
   const listHsla = useMemo(()=>{
@@ -115,24 +156,30 @@ function EditorCs({
       
       <Div_EditorCs_A>
       
+        <Div_EditorCs_A_MakeSeries
+          onClick={(event)=>onClick_MakeSeries(event)}
+        > 
+          <div> Make Series </div>  
+        </Div_EditorCs_A_MakeSeries>
+        
       </Div_EditorCs_A>
       
       
       <Div_EditorCs_B>
       
-        <Div_Editor_B_Element> 
+        <Div_EditorCs_B_Element> 
           <div> H </div>
           <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} min="0" max="360" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
-        </Div_Editor_B_Element>
+        </Div_EditorCs_B_Element>
         
-        <Div_Editor_B_Element> 
+        <Div_EditorCs_B_Element> 
           <div> S </div>
           <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} min="0" max="100" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
-        </Div_Editor_B_Element>
+        </Div_EditorCs_B_Element>
       
       </Div_EditorCs_B>
       
