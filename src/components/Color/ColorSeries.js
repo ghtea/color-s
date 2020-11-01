@@ -54,9 +54,10 @@ function ColorSeries({
   
   const dispatch = useDispatch();
   
+  
   const onClick_calculateSeries  = useCallback(
     () => {
-      const colorWhite = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'white']), [] );
+      const colorWhite = itemCurrent.getIn(['white']);
       const listHslWhite = [colorWhite.getIn(['hsl', 'h']), colorWhite.getIn(['hsl', 's']), colorWhite.getIn(['hsl', 'l'])];
       
       calculateSeries(listHslWhite);

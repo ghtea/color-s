@@ -69,6 +69,7 @@ function Editor({
           replacement = 'hsl';
         }
       }
+      /*
       else if (option==='opacity'){
         if (isOpacityCurrent===true){
           replacement = false;
@@ -77,7 +78,8 @@ function Editor({
           replacement = true;
         }
       }
-        
+      */
+      
       dispatch( actionsStatus.return_REPLACE_STATUS({
         location: ['current', 'color', modelCurrent, option],
         replacement: replacement
