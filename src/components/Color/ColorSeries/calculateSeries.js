@@ -5,62 +5,65 @@ import colorlab from 'colorlab';
 
 
 
-const calculateOne = (listHslExisting, direction, position, index) => {
+const calculateOne = (listHslPrevious, listHslStart, listHslEnd, indexAll, size) => {
 	
 	let listColorTesting = [];
     
-  const colorExisting_acColors = new acColors({"color":listHslExisting, "type":"hsl"});
-  const listLabExisting = colorExisting_acColors.lab;
-  const colorExisting_colorLab = new colorlab.CIELAB(...listLabExisting);
+  const colorPrevious_acColors = new acColors({"color":listHslPrevious, "type":"hsl"}); 
+  const listLabPrevious = colorPrevious_acColors.lab; 
+  const colorPrevious_colorLab = new colorlab.CIELAB(...listLabPrevious);
   
-  const colorWhite_colorLab = new colorlab.CIELAB(100, 0, 0);
-  const colorBlack_colorLab = new colorlab.CIELAB(0, 0, 0);
+  const colorStart_acColors = new acColors({"color":listHslStart, "type":"hsl"}); 
+  const listLabStart = colorStart_acColors.lab; 
+  const colorStart_colorLab = new colorlab.CIELAB(...listLabStart);
   
-  for (var changeSaturation = -25; changeSaturation <= 25; changeSaturation++){
-    if ( (listHslExisting[1]+changeSaturation) > 100 || (listHslExisting[1]+changeSaturation) < 0) {
+  const colorEnd_acColors = new acColors({"color":listHslEnd, "type":"hsl"}); 
+  const listLabEnd = colorEnd_acColors.lab; 
+  const colorEnd_colorLab = new colorlab.CIELAB(...listLabEnd);
+  
+  
+  for (var changeSaturation = -20; changeSaturation <= 20; changeSaturation++){
+    if ( (listHslPrevious[1]+changeSaturation) > 100 || (listHslPrevious[1]+changeSaturation) < 0) {
       continue;
     }
     
-    for (var changeLightness = 0; changeLightness >= -25; changeLightness--){
-      if ( (listHslExisting[2]+changeLightness) > 100 || (listHslExisting[2]+changeLightness) < 0) {
+    for (var changeLightness = 0; changeLightness >= -20; changeLightness--){
+      if ( (listHslPrevious[2]+changeLightness) > 100 || (listHslPrevious[2]+changeLightness) < 0) {
         continue;
       }
       
       
-      const listHslTesting = [listHslExisting[0], listHslExisting[1]+changeSaturation, listHslExisting[2]+changeLightness];
-      
-      //console.log('listHslTesting')
-      //console.log(listHslTesting)
-      //console.log(listHslExisting)
-      
-      // 21 = 1.32 를 11번 곱한것
-      const contrast_Testing_Existing = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(${listHslExisting[0]}, ${listHslExisting[1]}%, ${listHslExisting[2]}%)`);
-      const contrast_Testing_White = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(0, 0%, 100%)`);
-      const contrast_Testing_Black = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(0, 0%, 0%)`);
-      
-      
+      const listHslTesting = [listHslPrevious[0], listHslPrevious[1]+changeSaturation, listHslPrevious[2]+changeLightness];
       const colorTesting_acColors = new acColors({"color":listHslTesting, "type":"hsl"});
       const listLabTesting = colorTesting_acColors.lab;
       const colorTesting_colorLab = new colorlab.CIELAB(...listLabTesting);
       
+      //console.log('listHslTesting')
+      //console.log(listHslTesting)
+      //console.log(listHslPrevious)
       
-      const difference_Testing_Existing = colorlab.CIEDE2000(colorTesting_colorLab, colorExisting_colorLab);
-      const difference_Testing_White = colorlab.CIEDE2000(colorTesting_colorLab, colorWhite_colorLab);
-      const difference_Testing_Black = colorlab.CIEDE2000(colorTesting_colorLab, colorBlack_colorLab);
+      // 21 = 1.32 를 11번 곱한것
+      const contrast_Testing_Previous = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(${listHslPrevious[0]}, ${listHslPrevious[1]}%, ${listHslPrevious[2]}%)`);
+      const contrast_Testing_Start = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(${listHslStart[0]}, ${listHslStart[1]}%, ${listHslStart[2]}%)`);
+      const contrast_Testing_End = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(${listHslEnd[0]}, ${listHslEnd[1]}%, ${listHslEnd[2]}%)`);
+      
+      const difference_Testing_Previous = colorlab.CIEDE2000(colorTesting_colorLab, colorPrevious_colorLab);
+      const difference_Testing_Start = colorlab.CIEDE2000(colorTesting_colorLab, colorStart_colorLab);
+      const difference_Testing_End = colorlab.CIEDE2000(colorTesting_colorLab, colorEnd_colorLab);
       
       
       const colorTesting = {
         listHsl: listHslTesting,
         listLab: listLabTesting,
         
-        contrast_Testing_Existing: contrast_Testing_Existing,
-        difference_Testing_Existing: difference_Testing_Existing,
+        contrast_Testing_Previous: contrast_Testing_Previous,
+        difference_Testing_Previous: difference_Testing_Previous,
         
-        contrast_Testing_White: contrast_Testing_White,
-        difference_Testing_White: difference_Testing_White,
+        contrast_Testing_Start: contrast_Testing_Start,
+        difference_Testing_Start: difference_Testing_Start,
         
-        contrast_Testing_Black: contrast_Testing_Black,
-        difference_Testing_Black: difference_Testing_Black
+        contrast_Testing_End: contrast_Testing_End,
+        difference_Testing_End: difference_Testing_End
       }
       //console.log(colorTesting);
       listColorTesting.push(colorTesting);
@@ -68,48 +71,51 @@ const calculateOne = (listHslExisting, direction, position, index) => {
     }
   }
   
-  const contrastGoal_Testing_Existing = Math.pow(21, 1/11);
-  const differenceGoal_Testing_Existing = 100/11;
+  const contrastAll = getContrast.ratio(`hsl(${listHslStart[0]}, ${listHslStart[1]}%, ${listHslStart[2]}%)`, `hsl(${listHslEnd[0]}, ${listHslEnd[1]}%, ${listHslEnd[2]}%)`);
+  const differenceAll = colorlab.CIEDE2000(colorStart_colorLab, colorEnd_colorLab);
+
+  const contrastGoal_Testing_Previous = Math.pow(contrastAll, 1/(size-1));
+  const differenceGoal_Testing_Previous = differenceAll/(size-1);
   
-  const contrastGoal_Testing_White = Math.pow(21, index/11);
-  const differenceGoal_Testing_White = 100/11 * index;
-  const contrastGoal_Testing_Black = Math.pow(21, (11-index)/11);
-  const differenceGoal_Testing_Black = 100/11 * (11-index);
+  const contrastGoal_Testing_Start = Math.pow(contrastAll, (indexAll-0)/(size-1));
+  const differenceGoal_Testing_Start = differenceAll/(size-1) * (indexAll-0);
+  const contrastGoal_Testing_End = Math.pow(contrastAll, ((size-1)-indexAll)/(size-1));
+  const differenceGoal_Testing_End = differenceAll/(size-1) * ((size-1)-indexAll);
   
   const colorClosest = listColorTesting.reduce(function(colorPrevious, colorCurrent) {
     
     const errorPrevious = 
-      Math.pow((colorPrevious.contrast_Testing_Existing - contrastGoal_Testing_Existing)/contrastGoal_Testing_Existing, 2) + 
-      Math.pow((colorPrevious.difference_Testing_Existing - differenceGoal_Testing_Existing)/differenceGoal_Testing_Existing, 2) +
+      Math.pow((colorPrevious.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
+      Math.pow((colorPrevious.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
       
-      Math.pow((colorPrevious.contrast_Testing_White - contrastGoal_Testing_White)/contrastGoal_Testing_White, 2) + 
-      Math.pow((colorPrevious.difference_Testing_White - differenceGoal_Testing_White)/differenceGoal_Testing_White, 2) +
+      Math.pow((colorPrevious.contrast_Testing_Start - contrastGoal_Testing_Start)/contrastGoal_Testing_Start, 2) + 
+      Math.pow((colorPrevious.difference_Testing_Start - differenceGoal_Testing_Start)/differenceGoal_Testing_Start, 2) +
       
-      Math.pow((colorPrevious.contrast_Testing_Black - contrastGoal_Testing_Black)/contrastGoal_Testing_Black, 2) + 
-      Math.pow((colorPrevious.difference_Testing_Black - differenceGoal_Testing_Black)/differenceGoal_Testing_Black, 2);
+      Math.pow((colorPrevious.contrast_Testing_End - contrastGoal_Testing_End)/contrastGoal_Testing_End, 2) + 
+      Math.pow((colorPrevious.difference_Testing_End - differenceGoal_Testing_End)/differenceGoal_Testing_End, 2);
       
       
       
     const errorCurrent = 
-      Math.pow((colorCurrent.contrast_Testing_Existing - contrastGoal_Testing_Existing)/contrastGoal_Testing_Existing, 2) + 
-      Math.pow((colorCurrent.difference_Testing_Existing - differenceGoal_Testing_Existing)/differenceGoal_Testing_Existing, 2) +
+      Math.pow((colorCurrent.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
+      Math.pow((colorCurrent.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
       
-      Math.pow((colorCurrent.contrast_Testing_White - contrastGoal_Testing_White)/contrastGoal_Testing_White, 2) + 
-      Math.pow((colorCurrent.difference_Testing_White - differenceGoal_Testing_White)/differenceGoal_Testing_White, 2) +
+      Math.pow((colorCurrent.contrast_Testing_Start - contrastGoal_Testing_Start)/contrastGoal_Testing_Start, 2) + 
+      Math.pow((colorCurrent.difference_Testing_Start - differenceGoal_Testing_Start)/differenceGoal_Testing_Start, 2) +
       
-      Math.pow((colorCurrent.contrast_Testing_Black - contrastGoal_Testing_Black)/contrastGoal_Testing_Black, 2) + 
-      Math.pow((colorCurrent.difference_Testing_Black - differenceGoal_Testing_Black)/differenceGoal_Testing_Black, 2);
+      Math.pow((colorCurrent.contrast_Testing_End - contrastGoal_Testing_End)/contrastGoal_Testing_End, 2) + 
+      Math.pow((colorCurrent.difference_Testing_End - differenceGoal_Testing_End)/differenceGoal_Testing_End, 2);
       
     return ( errorCurrent < errorPrevious  ? colorCurrent : colorPrevious);
   });
   
-  console.log(position)
+  
   console.log('colorClosest');
   console.log(colorClosest);
   
   return new Promise(function (resolve, reject) {
   	
-		if (true) {
+		if (colorClosest.listHsl) {
 			resolve(colorClosest.listHsl);
 		}
 
@@ -127,26 +133,32 @@ const calculateSeries = async (listHslStart, listHslEnd, size) => {
 	
 	console.log('listHslStart');
 	console.log(listHslStart);
+	console.log(listHslEnd);
 	
-	let listIndexAmongBetween = []
-  for (var index=0; index < size-2; index++){
-    listIndexAmongBetween.push(index);
+	let listIndexAll = []    // [1, 2, 3, 4, ...] (start, end 제외)
+  for (var indexAll=1; indexAll < size-1; indexAll++){
+    listIndexAll.push(indexAll);
   }
+  
+  
 	
-	let listColorHslAmongBetween = [];
-  for (const index of listIndexAmongBetween) {
-    if (index===0){
-      const listHsl = await calculateOne(listHslStart, 'up', index);
-      listColorHslAmongBetween.push(listHsl);
+	let listColorHslBetween = []; // (start, end 제외)
+  for (const indexAll of listIndexAll) {  // listIndexAll: [1, 2, 3, 4, ...] (start, end 제외)
+    if (indexAll===1){
+      const listHsl = await calculateOne(listHslStart, listHslStart, listHslEnd, indexAll, size);
+      listColorHslBetween.push(listHsl);
     }
     else {
-      const listHsl = await calculateOne(listColorHslAmongBetween[index-1], 'up', index); 
-      listColorHslAmongBetween.push(listHsl);
+      const listHsl = await calculateOne(listColorHslBetween[indexAll-2], listHslStart, listHslEnd, indexAll, size); 
+      listColorHslBetween.push(listHsl);
     }
   }
+  
+  const listColorHslAll = [listHslStart, ...listColorHslBetween, listHslEnd]
   console.log('Done!');
+  console.log(listColorHslAll)
 
-  return listColorHslAmongBetween;
+  return listColorHslAll;
   
  }
  
@@ -154,7 +166,7 @@ const calculateSeries = async (listHslStart, listHslEnd, size) => {
  export default calculateSeries;
  
  /*
-  const listHsl10 = await calculateOne(listHslWhite, 'up', '10', 1);
+  const listHsl10 = await calculateOne(listHslStart, 'up', '10', 1);
   const listHsl20 = await calculateOne(listHsl10, 'up', '20', 2);
   const listHsl30 = await calculateOne(listHsl20, 'up', '30', 3);
   const listHsl40 = await calculateOne(listHsl30, 'up', '40', 4);

@@ -42,7 +42,7 @@ const stateInitial = fromJS({
       end: colorDefaultBlack,
       size: 2,
       
-      listColorBetween: []
+      listColorAll: [colorDefaultWhite, colorDefaultBlack]
       
     },
     listItem: []

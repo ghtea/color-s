@@ -39,7 +39,7 @@ export const colorDefaultWhite = {
 	
 	hsl: {
 		h: 0,
-		s: 0,
+		s: 50,
 		l: 100
 	},
 	
@@ -57,7 +57,7 @@ export const colorDefaultBlack = {
 	
 	hsl: {
 		h: 0,
-		s: 0,
+		s: 50,
 		l: 0
 	},
 	

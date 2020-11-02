@@ -99,9 +99,9 @@ function ColorSeries({
   
   const returnTextHsla  = useCallback(
     (index) => {
-      const h = itemCurrent.getIn(['listColorBetween', index, 'hsl', 'h']);
-      const s = itemCurrent.getIn(['listColorBetween', index, 'hsl', 's']);
-      const l = itemCurrent.getIn(['listColorBetween', index, 'hsl', 'l']);
+      const h = itemCurrent.getIn(['listColorAll', index, 'hsl', 'h']);
+      const s = itemCurrent.getIn(['listColorAll', index, 'hsl', 's']);
+      const l = itemCurrent.getIn(['listColorAll', index, 'hsl', 'l']);
       //const opacity = itemCurrent.getIn([position, 'opacity']);
       const opacity = 1;
       return `hsla(${h}, ${s}%, ${l}%, ${opacity})`
@@ -129,6 +129,7 @@ function ColorSeries({
                 <Div_Color
                   key={`Color-${index}`}
                   index={index}
+                  size={size}
                   textHsla={returnTextHsla(index)}
                 />
               )

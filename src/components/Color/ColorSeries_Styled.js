@@ -208,7 +208,7 @@ export const Div_ContainerColor = styled.div
   flex-direction: row;   /* row */
   justify-content: center;
   align-items: center;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
   
   box-sizing: border-box;
   border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
@@ -237,13 +237,14 @@ export const Div_Color = styled.div
   flex-direction: column;   /* row */
   justify-content: space-evenly;
   align-items: center;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
   
   box-sizing: border-box;
   border: 0px solid yellow;  /* border: 2px dashed #aaa; */
   background-color: ${props=>props.textHsla};
   
-  width: 9%;
+  width: ${props=>90/(props.size)}%; /* it will be ignored when colors are too much for width of container */
+  max-width: 40px;
   height: 100%;
   font-size: 1rem;
   border-radius: 0px;

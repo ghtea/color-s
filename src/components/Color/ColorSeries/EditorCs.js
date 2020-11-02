@@ -30,6 +30,7 @@ import {
 } from './EditorCs_Styled'
 
 import calculateSeries from './calculateSeries';
+import convertHslToRgb from '../../../store/sagas/color/spreadHsl/convertHslToRgb';
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../../tools/hooks/useInput';
@@ -73,10 +74,25 @@ function EditorCs({
   const onChange_StartEnd = useCallback(
     (event, which, element) => {
       
-      dispatch( actionsColor.return_REPLACE_COLOR({
-        location: ['series', 'itemCurrent', which, 'hsl', element],
-        replacement: Math.round(event.target.value * 10)/10
-      }) )
+      if (which==='both'){
+        
+        dispatch( actionsColor.return_REPLACE_COLOR({
+          location: ['series', 'itemCurrent', 'start', 'hsl', element],
+          replacement: Math.round(event.target.value * 10)/10
+        }) )
+        dispatch( actionsColor.return_REPLACE_COLOR({
+          location: ['series', 'itemCurrent', 'end', 'hsl', element],
+          replacement: Math.round(event.target.value * 10)/10
+        }) )
+      
+      }
+      else {
+        dispatch( actionsColor.return_REPLACE_COLOR({
+          location: ['series', 'itemCurrent', which, 'hsl', element],
+          replacement: Math.round(event.target.value * 10)/10
+        }) )
+      }
+      
       
       console.log(color.toJS())
     },
@@ -107,45 +123,50 @@ function EditorCs({
   
   
   const onClick_MakeSeries  = useCallback(
-    async () => {
+    async (event, sizeNew) => {
       console.log(itemCurrent.toJS())
       //const colorWhite = itemCurrent.getIn(['white']);
       const listHslStart = [itemCurrent.getIn(['start', 'hsl', 'h']), itemCurrent.getIn(['start', 'hsl', 's']), itemCurrent.getIn(['start', 'hsl', 'l'])];
       const listHslEnd = [itemCurrent.getIn(['end', 'hsl', 'h']), itemCurrent.getIn(['end', 'hsl', 's']), itemCurrent.getIn(['end', 'hsl', 'l'])];
       
-      const listColorHslBetween = await calculateSeries(listHslStart, listHslEnd, size);
+      const listColorHslAll = await calculateSeries(listHslStart, listHslEnd, sizeNew);
       
-      
-      for (var iColor = 0; iColor < size-2; iColor++) {   // 'start'와 'end' 제외
+      const listColorAll = []
+      for (var iColor = 0; iColor < size; iColor++) {   // 'start'와 'end' 제외
         
-        const replacement = {
+        const objRgb = convertHslToRgb(...listColorHslAll[iColor]); // {numberR, numberG, numberB}
+        
+        const color = {
 
         	hsl: {
-        		h: listColorHslBetween[iColor][0],
-        		s: listColorHslBetween[iColor][1],
-        		l: listColorHslBetween[iColor][2]
+        		h: listColorHslAll[iColor][0],
+        		s: listColorHslAll[iColor][1],
+        		l: listColorHslAll[iColor][2]
         	},
         	
         	rgb: {
-        		r: 255,
-        		g: 255,
-        		b: 255
+        		r: objRgb['numberR'],
+        		g: objRgb['numberG'],
+        		b: objRgb['numberB']
         	},
         	
         	opacity: 1
         };
-          
         
-        dispatch( actionsColor.return_REPLACE_COLOR({
-          location: ['series', 'itemCurrent', 'listColorBetween', iColor],
-          replacement: replacement
-        }) );
+        listColorAll.push(color);
         
-        dispatch( actionsColor.return_SPREAD_HSL({
-          location: ['series', 'itemCurrent', 'listColorBetween', iColor]
-        }) );
       }
       
+      dispatch( actionsColor.return_REPLACE_COLOR({
+        location: ['series', 'itemCurrent', 'listColorAll'],
+        replacement: listColorAll
+      }) );
+        
+      dispatch( actionsColor.return_REPLACE_COLOR({
+        location: ['series', 'itemCurrent', 'size'],
+        replacement: sizeNew
+      }) );
+        
     },
     [itemCurrent, size]
   );
@@ -169,7 +190,7 @@ function EditorCs({
       <Div_EditorCs_A>
       
         <Div_EditorCs_A_MakeSeries
-          onClick={(event)=>onClick_MakeSeries(event)}
+          onClick={(event)=>onClick_MakeSeries(event, 12)}
         > 
           <div> Make Series </div>  
         </Div_EditorCs_A_MakeSeries>
@@ -181,8 +202,8 @@ function EditorCs({
       
         <Div_EditorCs_B_Element> 
           <div> H </div>
-          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'h')} min="0" max="360" />  </div>
-          <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'h')} /> </div>
+          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} min="0" max="360" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
         </Div_EditorCs_B_Element>
         
