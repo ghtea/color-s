@@ -17,22 +17,21 @@ const calculateOne = (listHslExisting, direction, position, index) => {
   const colorBlack_colorLab = new colorlab.CIELAB(0, 0, 0);
   
   for (var changeSaturation = -25; changeSaturation <= 25; changeSaturation++){
-    if ( (0+changeSaturation) > 100 || (0+changeSaturation) < 0) {
+    if ( (listHslExisting[1]+changeSaturation) > 100 || (listHslExisting[1]+changeSaturation) < 0) {
       continue;
     }
     
-    for (var changeLightness = 0; changeLightness <= 25; changeLightness++){
-      if ( (100+changeLightness) > 100 || (100+changeLightness) < 0) {
+    for (var changeLightness = 0; changeLightness >= -25; changeLightness--){
+      if ( (listHslExisting[2]+changeLightness) > 100 || (listHslExisting[2]+changeLightness) < 0) {
         continue;
       }
       
-      let listHslTesting = [];
-      if (direction === 'up'){
-      	listHslTesting = [listHslExisting[0], listHslExisting[1]+changeSaturation, listHslExisting[2]+changeLightness];
-      }
-      else if (direction === 'down'){
-      	listHslTesting = [listHslExisting[0], listHslExisting[1]+changeSaturation, listHslExisting[2]-changeLightness];
-      }
+      
+      const listHslTesting = [listHslExisting[0], listHslExisting[1]+changeSaturation, listHslExisting[2]+changeLightness];
+      
+      //console.log('listHslTesting')
+      //console.log(listHslTesting)
+      //console.log(listHslExisting)
       
       // 21 = 1.32 를 11번 곱한것
       const contrast_Testing_Existing = getContrast.ratio(`hsl(${listHslTesting[0]}, ${listHslTesting[1]}%, ${listHslTesting[2]}%)`, `hsl(${listHslExisting[0]}, ${listHslExisting[1]}%, ${listHslExisting[2]}%)`);
@@ -63,7 +62,7 @@ const calculateOne = (listHslExisting, direction, position, index) => {
         contrast_Testing_Black: contrast_Testing_Black,
         difference_Testing_Black: difference_Testing_Black
       }
-      console.log(colorTesting);
+      //console.log(colorTesting);
       listColorTesting.push(colorTesting);
       
     }
@@ -104,6 +103,7 @@ const calculateOne = (listHslExisting, direction, position, index) => {
     return ( errorCurrent < errorPrevious  ? colorCurrent : colorPrevious);
   });
   
+  console.log(position)
   console.log('colorClosest');
   console.log(colorClosest);
   

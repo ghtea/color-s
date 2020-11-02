@@ -5,7 +5,7 @@ import axios from 'axios';
 //import queryString from 'query-string';
 
 import {useSelector, useDispatch} from "react-redux";
-import Immutable from 'immutable';
+import Immutable, {toJS} from 'immutable';
 
 import * as actionsColor from "../../../store/actions/color";
 import * as actionsStatus from "../../../store/actions/status";
@@ -44,6 +44,7 @@ function EditorCs({
   //console.log(location)
   
   
+  const color = useSelector( state => state.color, [] );
   
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
   
@@ -77,7 +78,7 @@ function EditorCs({
         replacement: Math.round(event.target.value * 10)/10
       }) )
       
-      
+      console.log(color.toJS())
     },
     []
   );
@@ -107,7 +108,7 @@ function EditorCs({
   
   const onClick_MakeSeries  = useCallback(
     async () => {
-      
+      console.log(itemCurrent.toJS())
       //const colorWhite = itemCurrent.getIn(['white']);
       const listHslWhite = [itemCurrent.getIn(['white', 'hsl', 'h']), itemCurrent.getIn(['white', 'hsl', 's']), itemCurrent.getIn(['white', 'hsl', 'l'])];
       
@@ -135,7 +136,7 @@ function EditorCs({
       }
       
     },
-    []
+    [itemCurrent]
   );
   
   /*
