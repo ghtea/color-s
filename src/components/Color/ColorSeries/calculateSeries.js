@@ -123,36 +123,30 @@ const calculateOne = (listHslExisting, direction, position, index) => {
 
 
 
-const calculateSeries = async (listHslWhite) => {
+const calculateSeries = async (listHslStart, listHslEnd, size) => {
 	
-	console.log('listHslWhite');
-	console.log(listHslWhite);
+	console.log('listHslStart');
+	console.log(listHslStart);
 	
-	let listColor = [];
+	let listIndexAmongBetween = []
+  for (var index=0; index < size-2; index++){
+    listIndexAmongBetween.push(index);
+  }
 	
-	const listHsl10 = await calculateOne(listHslWhite, 'up', '10', 1);
-  const listHsl20 = await calculateOne(listHsl10, 'up', '20', 2);
-  const listHsl30 = await calculateOne(listHsl20, 'up', '30', 3);
-  const listHsl40 = await calculateOne(listHsl30, 'up', '40', 4);
-  const listHsl50 = await calculateOne(listHsl40, 'up', '50', 5);
-  const listHsl60 = await calculateOne(listHsl50, 'up', '60', 6);
-  const listHsl70 = await calculateOne(listHsl60, 'up', '70', 7);
-  const listHsl80 = await calculateOne(listHsl70, 'up', '80', 8);
-  const listHsl90 = await calculateOne(listHsl80, 'up', '90', 9);
-  const listHsl100 = await calculateOne(listHsl90, 'up', '100', 10);
-  
-  return [
-    listHsl10, 
-    listHsl20, 
-    listHsl30, 
-    listHsl40, 
-    listHsl50, 
-    listHsl60, 
-    listHsl70, 
-    listHsl80, 
-    listHsl90, 
-    listHsl100
-  ];
+	let listColorHslAmongBetween = [];
+  for (const index of listIndexAmongBetween) {
+    if (index===0){
+      const listHsl = await calculateOne(listHslStart, 'up', index);
+      listColorHslAmongBetween.push(listHsl);
+    }
+    else {
+      const listHsl = await calculateOne(listColorHslAmongBetween[index-1], 'up', index); 
+      listColorHslAmongBetween.push(listHsl);
+    }
+  }
+  console.log('Done!');
+
+  return listColorHslAmongBetween;
   
  }
  

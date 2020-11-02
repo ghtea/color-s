@@ -36,9 +36,8 @@ function ColorSeries({
   
 }) {
   
-  const hueCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'hue']), [] );
-  
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
+  const size = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'size']), [] );
   //const positionCurrent = useSelector( state => state.status.getIn(['current', 'color', 'position']), [] );
   
   //console.log(colorMain.toJS())
@@ -47,9 +46,13 @@ function ColorSeries({
   
   */
   
-  const listPosition = useMemo(()=>{
-    return (['10', '20', '30', '40', '50', '60', '70', '80', '90', '100']);
-  }, []);
+  const listIndex = useMemo(()=>{
+    let result = []
+    for (var index=0; index < size; index++){
+      result.push(index);
+    }
+    return result;
+  }, [ size ] );
   
   
   const dispatch = useDispatch();
@@ -95,12 +98,12 @@ function ColorSeries({
   */
   
   const returnTextHsla  = useCallback(
-    (position) => {
-      const h = itemCurrent.getIn([position, 'hsl', 'h']);
-      const s = itemCurrent.getIn([position, 'hsl', 's']);
-      const l = itemCurrent.getIn([position, 'hsl', 'l']);
-      const opacity = itemCurrent.getIn([position, 'opacity']);
-      
+    (index) => {
+      const h = itemCurrent.getIn(['listColorBetween', index, 'hsl', 'h']);
+      const s = itemCurrent.getIn(['listColorBetween', index, 'hsl', 's']);
+      const l = itemCurrent.getIn(['listColorBetween', index, 'hsl', 'l']);
+      //const opacity = itemCurrent.getIn([position, 'opacity']);
+      const opacity = 1;
       return `hsla(${h}, ${s}%, ${l}%, ${opacity})`
     },
     [itemCurrent]
@@ -121,13 +124,12 @@ function ColorSeries({
         
         <Div_Main_Middle> 
           <Div_ContainerColor>
-          {listPosition.map( (element, index)=>{
+          {listIndex.map( (index, i)=>{
               return (
                 <Div_Color
                   key={`Color-${index}`}
-                  postion={element}
                   index={index}
-                  textHsla={returnTextHsla(element)}
+                  textHsla={returnTextHsla(index)}
                 />
               )
             })}

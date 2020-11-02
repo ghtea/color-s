@@ -38,12 +38,21 @@ const stateInitial = fromJS({
     itemCurrent: {
       _id: 'default',
       
-      start: colorDefaultWhite,
-      end: colorDefaultBlack,
-      size: 2,
+      white: colorDefaultWhite,
+      black: colorDefaultBlack,
       
-      listColorBetween: []
+      '10': colorDefault,
+      '20': colorDefault,
+      '30': colorDefault,
+      '40': colorDefault,
       
+      '50': colorDefault,
+      
+      '60': colorDefault,
+      '70': colorDefault,
+      '80': colorDefault,
+      '90': colorDefault,
+      '100': colorDefault
     },
     listItem: []
   }

@@ -47,7 +47,7 @@ function EditorCs({
   const color = useSelector( state => state.color, [] );
   
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
-  
+  const size = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'size']), [] );
   
   const dispatch = useDispatch();
   
@@ -70,17 +70,17 @@ function EditorCs({
   
 
   
-  const onChange_White = useCallback(
-    (event, element) => {
+  const onChange_StartEnd = useCallback(
+    (event, which, element) => {
       
       dispatch( actionsColor.return_REPLACE_COLOR({
-        location: ['series', 'itemCurrent', 'white', 'hsl', element],
+        location: ['series', 'itemCurrent', which, 'hsl', element],
         replacement: Math.round(event.target.value * 10)/10
       }) )
       
       console.log(color.toJS())
     },
-    []
+    [size]
   );
   
   
@@ -110,33 +110,44 @@ function EditorCs({
     async () => {
       console.log(itemCurrent.toJS())
       //const colorWhite = itemCurrent.getIn(['white']);
-      const listHslWhite = [itemCurrent.getIn(['white', 'hsl', 'h']), itemCurrent.getIn(['white', 'hsl', 's']), itemCurrent.getIn(['white', 'hsl', 'l'])];
+      const listHslStart = [itemCurrent.getIn(['start', 'hsl', 'h']), itemCurrent.getIn(['start', 'hsl', 's']), itemCurrent.getIn(['start', 'hsl', 'l'])];
+      const listHslEnd = [itemCurrent.getIn(['end', 'hsl', 'h']), itemCurrent.getIn(['end', 'hsl', 's']), itemCurrent.getIn(['end', 'hsl', 'l'])];
       
-      const listColorHsl = await calculateSeries(listHslWhite);
+      const listColorHslBetween = await calculateSeries(listHslStart, listHslEnd, size);
       
-      const obj = {};
-      for (var iColor = 0; iColor < 10; iColor++) {
-        
-        const position = ((iColor+1)*10).toString(); 
+      
+      for (var iColor = 0; iColor < size-2; iColor++) {   // 'start'와 'end' 제외
         
         const replacement = {
-      		h: listColorHsl[iColor][0],
-      		s: listColorHsl[iColor][1],
-      		l: listColorHsl[iColor][2]
+
+        	hsl: {
+        		h: listColorHslBetween[iColor][0],
+        		s: listColorHslBetween[iColor][1],
+        		l: listColorHslBetween[iColor][2]
+        	},
+        	
+        	rgb: {
+        		r: 255,
+        		g: 255,
+        		b: 255
+        	},
+        	
+        	opacity: 1
         };
+          
         
         dispatch( actionsColor.return_REPLACE_COLOR({
-          location: ['series', 'itemCurrent', position, 'hsl'],
+          location: ['series', 'itemCurrent', 'listColorBetween', iColor],
           replacement: replacement
         }) );
         
         dispatch( actionsColor.return_SPREAD_HSL({
-          location: ['series', 'itemCurrent', position]
+          location: ['series', 'itemCurrent', 'listColorBetween', iColor]
         }) );
       }
       
     },
-    [itemCurrent]
+    [itemCurrent, size]
   );
   
   /*
@@ -170,15 +181,40 @@ function EditorCs({
       
         <Div_EditorCs_B_Element> 
           <div> H </div>
-          <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} min="0" max="360" />  </div>
-          <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 'h'])} onChange={(event)=>onChange_White(event, 'h')} /> </div>
+          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'h')} min="0" max="360" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'h')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
         </Div_EditorCs_B_Element>
         
         <Div_EditorCs_B_Element> 
           <div> S </div>
-          <div> <input type="range" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} min="0" max="100" />  </div>
-          <div> <input type="text" value={itemCurrent.getIn(['white', 'hsl', 's'])} onChange={(event)=>onChange_White(event, 's')} /> </div>
+          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'start', 's')} min="0" max="100" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'start', 's')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
+        </Div_EditorCs_B_Element>
+        
+        <Div_EditorCs_B_Element> 
+          <div> L </div>
+          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'l')} min="0" max="100" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'l')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
+        </Div_EditorCs_B_Element>
+      
+      </Div_EditorCs_B>
+      
+      <Div_EditorCs_B>
+        
+        <Div_EditorCs_B_Element> 
+          <div> S </div>
+          <div> <input type="range" value={itemCurrent.getIn(['end', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'end', 's')} min="0" max="100" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['end', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'end', 's')} /> </div>
+          <div> <div>up</div> <div>down</div> </div>
+        </Div_EditorCs_B_Element>
+        
+        <Div_EditorCs_B_Element> 
+          <div> L </div>
+          <div> <input type="range" value={itemCurrent.getIn(['end', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'end', 'l')} min="0" max="100" />  </div>
+          <div> <input type="text" value={itemCurrent.getIn(['end', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'end', 'l')} /> </div>
           <div> <div>up</div> <div>down</div> </div>
         </Div_EditorCs_B_Element>
       
