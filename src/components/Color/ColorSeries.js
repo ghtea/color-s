@@ -138,11 +138,7 @@ function ColorSeries({
         </Div_Main_Middle>
         
         <Div_Main_Right> 
-          <div> magic </div>
-          <button> A </button>
-          <button> B </button>
-          <button> C </button>
-          <button> D </button>
+          
         </Div_Main_Right>
       
       </Div_Main>

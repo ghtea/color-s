@@ -24,9 +24,9 @@ import {
   Div_EditorCs, 
   Div_EditorCs_A, Div_EditorCs_B, Div_EditorCs_C,
   
-  Div_EditorCs_A_MakeSeries, 
+  Div_EditorCs_A_ChangeSize,
   Div_EditorCs_B_Element,
-  Div_EditorCs_C_UseClipboard, Div_EditorCs_C_BackForward
+  Div_EditorCs_C_MakeSeries
 } from './EditorCs_Styled'
 
 import calculateSeries from './calculateSeries';
@@ -49,6 +49,7 @@ function EditorCs({
   
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
   const size = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'size']), [] );
+  const [sizeNew, setSizeNew] = useState(size);
   
   const dispatch = useDispatch();
   
@@ -70,6 +71,15 @@ function EditorCs({
   }, [])
   
 
+  const onChange_Size = useCallback(
+    (event) => {
+      
+      setSizeNew(event.target.value);
+      
+    },
+    []
+  );
+  
   
   const onChange_StartEnd = useCallback(
     (event, which, element) => {
@@ -101,20 +111,16 @@ function EditorCs({
   
   
   const onClick_AdjustColorElement = useCallback(
-    (event, mode='hsl', element, max, min, unit) => {
+    (event, which, element, max, min, unit) => {
       
-      if (mode==='hsl'){
-        
-        let replacement = itemCurrent.getIn(['white', mode, element]) + unit;
-        if (replacement > max){ replacement = max } 
-        if (replacement < min){ replacement = min } 
-        
-        dispatch( actionsColor.return_REPLACE_COLOR({
-          location: ['series', 'itemCurrent', 'white', mode, element],
-          replacement: replacement
-        }) )
-        
-      }
+      let replacement = itemCurrent.getIn([which, 'hsl', element]) + unit;
+      if (replacement > max){ replacement = max } 
+      if (replacement < min){ replacement = min } 
+      
+      dispatch( actionsColor.return_REPLACE_COLOR({
+        location: ['series', 'itemCurrent', which, 'hsl', element],
+        replacement: replacement
+      }) )
       
     },
     [itemCurrent]
@@ -132,7 +138,7 @@ function EditorCs({
       const listColorHslAll = await calculateSeries(listHslStart, listHslEnd, sizeNew);
       
       const listColorAll = []
-      for (var iColor = 0; iColor < size; iColor++) {   // 'start'와 'end' 제외
+      for (var iColor = 0; iColor < sizeNew; iColor++) {   // 'start'와 'end' 제외
         
         const objRgb = convertHslToRgb(...listColorHslAll[iColor]); // {numberR, numberG, numberB}
         
@@ -166,7 +172,9 @@ function EditorCs({
         location: ['series', 'itemCurrent', 'size'],
         replacement: sizeNew
       }) );
-        
+      
+      console.log(itemCurrent.toJS())
+      
     },
     [itemCurrent, size]
   );
@@ -189,11 +197,10 @@ function EditorCs({
       
       <Div_EditorCs_A>
       
-        <Div_EditorCs_A_MakeSeries
-          onClick={(event)=>onClick_MakeSeries(event, 12)}
-        > 
-          <div> Make Series </div>  
-        </Div_EditorCs_A_MakeSeries>
+        <Div_EditorCs_A_ChangeSize> 
+          <div> <input type="range" value={sizeNew} onChange={(event)=>onChange_Size(event)} min="2" max="12" step="1" />  </div>
+          <div> {sizeNew} </div>
+        </Div_EditorCs_A_ChangeSize>
         
       </Div_EditorCs_A>
       
@@ -204,21 +211,30 @@ function EditorCs({
           <div> H </div>
           <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} min="0" max="360" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} /> </div>
-          <div> <div>up</div> <div>down</div> </div>
+          <div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 'h', 360, 0, 1) }>up</div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 'h', 360, 0, -1) }>down</div> 
+          </div>
         </Div_EditorCs_B_Element>
         
         <Div_EditorCs_B_Element> 
           <div> S </div>
           <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'start', 's')} min="0" max="100" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'start', 's')} /> </div>
-          <div> <div>up</div> <div>down</div> </div>
+          <div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 's', 100, 0, 1) }>up</div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 's', 100, 0, -1) }>down</div> 
+          </div>
         </Div_EditorCs_B_Element>
         
         <Div_EditorCs_B_Element> 
           <div> L </div>
           <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'l')} min="0" max="100" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'start', 'l')} /> </div>
-          <div> <div>up</div> <div>down</div> </div>
+          <div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 'l', 100, 0, 1) }>up</div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'start', 'l', 100, 0, -1) }>down</div> 
+          </div>
         </Div_EditorCs_B_Element>
       
       </Div_EditorCs_B>
@@ -229,24 +245,31 @@ function EditorCs({
           <div> S </div>
           <div> <input type="range" value={itemCurrent.getIn(['end', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'end', 's')} min="0" max="100" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['end', 'hsl', 's'])} onChange={(event)=>onChange_StartEnd(event, 'end', 's')} /> </div>
-          <div> <div>up</div> <div>down</div> </div>
+          <div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'end', 's', 100, 0, 1) }>up</div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'end', 's', 100, 0, -1) }>down</div> 
+          </div>
         </Div_EditorCs_B_Element>
         
         <Div_EditorCs_B_Element> 
           <div> L </div>
           <div> <input type="range" value={itemCurrent.getIn(['end', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'end', 'l')} min="0" max="100" />  </div>
           <div> <input type="text" value={itemCurrent.getIn(['end', 'hsl', 'l'])} onChange={(event)=>onChange_StartEnd(event, 'end', 'l')} /> </div>
-          <div> <div>up</div> <div>down</div> </div>
+          <div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'end', 'l', 100, 0, 1) }>up</div> 
+            <div onClick={event=>onClick_AdjustColorElement(event, 'end', 'l', 100, 0, -1) }>down</div> 
+          </div>
         </Div_EditorCs_B_Element>
       
       </Div_EditorCs_B>
       
       
       <Div_EditorCs_C>
-        <Div_EditorCs_C_BackForward> 
-          <div> {`<-`} </div> 
-          <div> {`->`} </div>  
-        </Div_EditorCs_C_BackForward>
+        <Div_EditorCs_C_MakeSeries
+          onClick={(event)=>onClick_MakeSeries(event, sizeNew)}
+        > 
+          <div> Make Series </div>  
+        </Div_EditorCs_C_MakeSeries>
       </Div_EditorCs_C>
       
     </Div_EditorCs>

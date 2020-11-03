@@ -211,10 +211,10 @@ export const Div_ContainerColor = styled.div
   flex-wrap: nowrap;
   
   box-sizing: border-box;
-  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  border: 2px solid #000;  /* border: 2px dashed #aaa; */
   background-color: none;
   
-  width: 100%;
+  width: 90%;
   height: calc(100% - 100px);
   font-size: 1rem;
   border-radius: 0px;
@@ -243,7 +243,7 @@ export const Div_Color = styled.div
   border: 0px solid yellow;  /* border: 2px dashed #aaa; */
   background-color: ${props=>props.textHsla};
   
-  width: ${props=>90/(props.size)}%; /* it will be ignored when colors are too much for width of container */
+  width: ${props=>100/(props.size)}%; /* it will be ignored when colors are too much for width of container */
   max-width: 40px;
   height: 100%;
   font-size: 1rem;
@@ -274,7 +274,7 @@ export const Div_Container = styled.div
   flex-wrap: no-wrap;
   
   box-sizing: border-box;
-  border: 0px solid #aaa;  /* border: 2px dashed #aaa; */
+  border: 0px solid #000;  /* border: 2px dashed #aaa; */
   background-color: none;
   
   width: 100%;

@@ -95,12 +95,18 @@ export const Div_EditorCs_Tool = styled.div
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   
+  
 `;
 
 
-export const Div_EditorCs_A_MakeSeries = styled(Div_EditorCs_Tool)
+export const Div_EditorCs_A_ChangeSize = styled(Div_EditorCs_Tool)
 ` 
-  
+  & > *:nth-child(1){
+    width: calc(100% - 30px);
+  }
+  & > *:nth-child(2){
+    width: 30px;
+  }
 `;
 
 
@@ -261,15 +267,7 @@ export const Div_EditorCs_C = styled.div
 `;
 
 
-export const Div_EditorCs_C_UseClipboard = styled(Div_EditorCs_Tool)
+export const Div_EditorCs_C_MakeSeries = styled(Div_EditorCs_Tool)
 ` 
   
-`;
-
-
-export const Div_EditorCs_C_BackForward = styled(Div_EditorCs_Tool)
-` 
-  & > * {
-    width: 40%;
-  }
 `;
