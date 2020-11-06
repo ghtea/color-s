@@ -9,9 +9,9 @@ export const Div_Title = styled.div`
   
   color: ${
     props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 1])}%, 
-      ${props.theme.getIn(['colorAssignment', 'basic', 'white', 2])}%)
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 1])}%, 
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 2])}%)
     `
   };
   
@@ -43,7 +43,7 @@ export const Div_Title = styled.div`
 export const Div_TitleText = styled.div`
   
   margin-left: 10px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   
 `

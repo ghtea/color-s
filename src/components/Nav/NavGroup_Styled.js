@@ -10,9 +10,9 @@ export const Div_NavGroup = styled.div`
   
   color: ${
     props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'basic', '10', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'basic', '10', 1])}%, 
-      ${props.theme.getIn(['colorAssignment', 'basic', '10', 2])}%)
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 1])}%, 
+      ${props.theme.getIn(['colorAssignment', 'main', '60', 2])}%)
     `
   };
   
@@ -46,7 +46,34 @@ export const Div_NavItem = styled.div`
   
   &:nth-child(n+2){ margin-left: 12px; }
   
-	
+  border-bottom: 3px solid transparent;
+  
+  font-weight: bold;
+  
+  color: ${
+    props => `hsl(
+      ${props.theme.getIn(['colorAssignment', 'basic', '60', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'basic', '60', 1])}%, 
+      ${props.theme.getIn(['colorAssignment', 'basic', '60', 2])}%)
+    `
+  };
+    
+	&:hover {
+	  color: ${
+      props => `hsl(
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 0])}, 
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 1])}%, 
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 2])}%)
+      `
+    };
+	  border-bottom: 3px solid ${
+      props => `hsl(
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 0])}, 
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 1])}%, 
+        ${props.theme.getIn(['colorAssignment', 'main', '60', 2])}%)
+      `
+    };
+	}
 `
 
 export const Div_NavItemIcon = styled.div`

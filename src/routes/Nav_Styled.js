@@ -7,26 +7,20 @@ export const Div_Nav = styled.div`
   width: 100%;
 	min-width: 360px;
   
-  border-bottom: 1px solid ${
+  border-bottom: 0px solid ${
   	props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'main', '70', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'main', '70', 1])}%, 
-      ${props.theme.getIn(['colorAssignment', 'main', '70', 2])}%)
-    `
-  };
-  
-  background-color: ${
-    props => `hsl(
       ${props.theme.getIn(['colorAssignment', 'main', '60', 0])}, 
       ${props.theme.getIn(['colorAssignment', 'main', '60', 1])}%, 
       ${props.theme.getIn(['colorAssignment', 'main', '60', 2])}%)
     `
   };
+  
+  background-color: none;
   color: ${
     props => `hsl(
-      ${props.theme.getIn(['colorAssignment', 'basic', '20', 0])}, 
-      ${props.theme.getIn(['colorAssignment', 'basic', '20', 1])}%, 
-      ${props.theme.getIn(['colorAssignment', 'basic', '20', 2])}%)
+      ${props.theme.getIn(['colorAssignment', 'main', '70', 0])}, 
+      ${props.theme.getIn(['colorAssignment', 'main', '70', 1])}%, 
+      ${props.theme.getIn(['colorAssignment', 'main', '70', 2])}%)
     `
   };
   
