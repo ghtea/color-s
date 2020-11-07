@@ -211,7 +211,7 @@ export const Div_ContainerColor = styled.div
   flex-wrap: nowrap;
   
   box-sizing: border-box;
-  border: 2px solid #000;  /* border: 2px dashed #aaa; */
+  border: 0px solid #000;  /* border: 2px dashed #aaa; */
   background-color: none;
   
   width: 90%;
@@ -240,7 +240,7 @@ export const Div_Color = styled.div
   flex-wrap: nowrap;
   
   box-sizing: border-box;
-  border: 0px solid yellow;  /* border: 2px dashed #aaa; */
+  
   background-color: ${props=>props.textHsla};
   
   width: ${props=>100/(props.size)}%; /* it will be ignored when colors are too much for width of container */
@@ -256,9 +256,18 @@ export const Div_Color = styled.div
   
   &:hover {
     z-index: 2;
-    outline: 3px solid #fff;  /* border: 2px dashed #aaa; */
+    border: 2px solid yellow !important;  /* border: 2px dashed #aaa; */
   }
   
+  
+  border-top: 2px solid #ddd; 
+  border-bottom: 2px solid #ddd; 
+  &:first-child {
+    border-left: 2px solid #ddd; 
+  }
+  &:last-child {
+    border-right: 2px solid #ddd; 
+  }
 `;
 
 

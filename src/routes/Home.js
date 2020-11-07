@@ -57,7 +57,7 @@ function Home({
     
     <Div_Home>
       <div>
-        
+        this is made by Jaehyeon Park
       </div>
     </Div_Home>
     
