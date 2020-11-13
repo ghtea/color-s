@@ -27,7 +27,6 @@ import {
   
 } from './List_Styled'
 
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../tools/hooks/useInput';
 
 

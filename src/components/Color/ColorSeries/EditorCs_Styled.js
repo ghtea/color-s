@@ -231,6 +231,144 @@ export const Div_EditorCs_B_Element = styled.div
 
 
 
+// https://github.com/darlanrod/input-range-scss/blob/master/_inputrange.scss
+// https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+export const Div_EditorCs_B_Element_InputRange = styled.div
+` 
+  ${props => `
+    width: ${props.stringWidthEntire};
+    height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
+  `}
+  position: relative;
+  
+  
+  /* basic */
+  & > input[type=range] {
+    -webkit-appearance: none;
+    border: none;
+    ${props=>`
+      width: calc(100% - ${props.pxBorderWidthPointer * 2}px);
+      height: ${props.pxHeightBoard}px;
+    `}
+    background: transparent;
+  }
+  & > input[type=range]:focus {
+    outline: none;
+  }
+  
+  
+  /* chrome */
+  & > input[type=range]::-webkit-slider-runnable-track {
+    ${props=>`
+      width: calc(100% - ${props.pxBorderWidthPointer * 2}px);
+      height: ${props.pxHeightBoard}px;
+      
+      border-radius: ${props.pxBorderRadiusBoard}px;
+      cursor: pointer;
+      
+      background: ${props.cssBackground};
+    `}
+  }
+  & > input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /*margin-top: -14px;*/
+    ${props=>`
+      width: ${props.pxWidthPointer}px;
+      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
+      
+      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
+      background-color: transparent;
+      
+      border: ${props.pxBorderWidthPointer}px solid #ffffff;
+      border-radius: 3px;
+      box-sizing: border-box;
+      
+      margin-top: -${props.pxBorderWidthPointer}px;   /* important! */
+    `}
+  }
+  & > input[type=range]:focus::-webkit-slider-runnable-track {
+    /*background: #367ebd;*/
+  }
+  
+  
+  
+  /* Firefox */
+  & > input[type=range]::-moz-range-track {
+    ${props=>`
+      width: calc(100% - ${props.pxBorderWidthPointer * 2}px);
+      height: ${props.pxHeightBoard}px;
+      border-radius: ${props.pxBorderRadiusBoard}px;
+      
+      cursor: pointer;
+      
+      background: ${props.cssBackground};
+    `}
+  }
+  & > input[type=range]::-moz-range-thumb {
+    ${props=>`
+      
+      width: ${props.pxWidthPointer}px;
+      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
+      
+      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
+      background-color: transparent;
+      
+      border: ${props.pxBorderWidthPointer}px solid #ffffff;
+      border-radius: 3px;
+      box-sizing: border-box;
+    `}
+  }
+  
+  
+  /* Edge */
+  & > input[type=range]::-ms-track {
+    ${props=>`
+      width: calc(100% - ${props.pxBorderWidthPointer * 2}px);
+      height: ${props.pxHeightBoard}px;
+      
+      border-radius: ${props.pxBorderRadiusBoard}px;
+      cursor: pointer;
+      
+      background: ${props.cssBackground};
+    `}
+  }
+  & > input[type=range]::-ms-fill-lower {
+    background: transparent;
+    border-color: transparent;
+  }
+  & > input[type=range]::-ms-fill-upper {
+    background: transparent;
+    border-color: transparent;
+  }
+  
+  & > input[type=range]:focus::-ms-fill-lower {
+    /*background: #3071a9; */
+  }
+  & > input[type=range]:focus::-ms-fill-upper {
+    /*background: #367ebd; */
+  }
+  
+  & > input[type=range]::-ms-thumb {
+    ${props=>`
+      
+      width: ${props.pxWidthPointer}px;
+      height: ${props.pxHeightBoard + props.pxBorderWidthPointer * 2}px;
+      
+      box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.3);
+      background-color: transparent;
+      
+      border: ${props.pxBorderWidthPointer}px solid #ffffff;
+      border-radius: 3px;
+      box-sizing: border-box;
+    `}
+    
+  }
+  
+  
+`
+// width: calc(100% - ${(props.pxWidthPointer + props.pxBorderWidthPointer * 2)}px);
+
+
 
 export const Div_EditorCs_C = styled.div
 ` 

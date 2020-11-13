@@ -25,14 +25,13 @@ import {
   Div_EditorCs_A, Div_EditorCs_B, Div_EditorCs_C,
   
   Div_EditorCs_A_ChangeSize,
-  Div_EditorCs_B_Element,
+  Div_EditorCs_B_Element, Div_EditorCs_B_Element_InputRange, 
   Div_EditorCs_C_MakeSeries
 } from './EditorCs_Styled'
 
 import calculateSeries from './calculateSeries';
 import convertHslToRgb from '../../../store/sagas/color/spreadHsl/convertHslToRgb';
 
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../../tools/hooks/useInput';
 
 
@@ -209,7 +208,20 @@ function EditorCs({
       
         <Div_EditorCs_B_Element> 
           <div> H </div>
-          <div> <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} min="0" max="360" />  </div>
+          
+          <div>
+            <Div_EditorCs_B_Element_InputRange
+              stringWidthEntire={'100%'}
+              pxHeightBoard={24}
+              pxBorderRadiusBoard={4}
+              
+              pxWidthPointer={16}
+              pxBorderWidthPointer={3}
+              cssBackground={'linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)'}
+            > <input type="range" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} min="0" max="360" />  
+            </Div_EditorCs_B_Element_InputRange>
+          </div>
+          
           <div> <input type="text" value={itemCurrent.getIn(['start', 'hsl', 'h'])} onChange={(event)=>onChange_StartEnd(event, 'both', 'h')} /> </div>
           <div> 
             <div onClick={event=>onClick_AdjustColorElement(event, 'start', 'h', 360, 0, 1) }>up</div> 

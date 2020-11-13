@@ -29,7 +29,6 @@ import {
   Div_Editor_C_UseClipboard, Div_Editor_C_BackForward
 } from './Editor_Styled'
 
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import useInput from '../../tools/hooks/useInput';
 
 

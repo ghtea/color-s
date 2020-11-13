@@ -11,6 +11,7 @@ import getContrast from 'get-contrast';
 import acColors from "ac-colors";
 import colorlab from 'colorlab';
 import calculateSeries from './ColorSeries/calculateSeries';
+import copyToClipboard from 'copy-to-clipboard';
 
 import * as actionsColor from "../../store/actions/color";
 
@@ -30,6 +31,7 @@ import {
   
   Div_Container
 } from './ColorSeries_Styled';
+
 
 
 function ColorSeries({
@@ -110,6 +112,35 @@ function ColorSeries({
   );
   
   
+  const onClick_Copy = useCallback(
+    () => {
+      
+      const size = itemCurrent.getIn(['size']);
+      const listColorAll = itemCurrent.getIn(['listColorAll']);
+      
+      let listColorHex = new Array(size).fill('');
+      
+      for (var iColor=0; iColor < size; iColor++){
+        
+        const color = listColorAll.getIn([iColor]);
+        const hexR = color.getIn(['rgb', 'r']).toString(16);
+        const hexG = color.getIn(['rgb', 'g']).toString(16);
+        const hexB = color.getIn(['rgb', 'b']).toString(16);
+        
+        const hexRGB = `#${hexR}${hexG}${hexB}`;
+        
+        listColorHex[iColor] = hexRGB;
+      }
+      
+      console.log(listColorHex);
+      const result = `[ ${listColorHex.join(', ')} ]`;
+      
+      copyToClipboard( result );
+    },
+    [itemCurrent]
+  );
+  
+  
   return (
     
     <Div_ColorSeries>
@@ -117,7 +148,10 @@ function ColorSeries({
       <Div_Main> 
         
         <Div_Main_Left> 
-          <button> copy </button>
+        
+          <button
+            onClick={event=>onClick_Copy(event)}
+          > copy </button>
           <button> save </button>
           <button> list </button>
         </Div_Main_Left>
