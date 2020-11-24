@@ -48,7 +48,7 @@ function EditorCs({
   
   const itemCurrent = useSelector( state => state.color.getIn(['series', 'itemCurrent']), [] );
   const size = useSelector( state => state.color.getIn(['series', 'itemCurrent', 'size']), [] );
-  const [sizeNew, setSizeNew] = useState(size);
+  const [sizeNew, setSizeNew] = useState(21);
   
   const dispatch = useDispatch();
   
@@ -197,7 +197,7 @@ function EditorCs({
       <Div_EditorCs_A>
       
         <Div_EditorCs_A_ChangeSize> 
-          <div> <input type="range" value={sizeNew} onChange={(event)=>onChange_Size(event)} min="2" max="12" step="1" />  </div>
+          <div> <input type="range" value={sizeNew} onChange={(event)=>onChange_Size(event)} min="2" max="21" step="1" />  </div>
           <div> {sizeNew} </div>
         </Div_EditorCs_A_ChangeSize>
         

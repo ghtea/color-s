@@ -113,27 +113,117 @@ function ColorSeries({
   
   
   const onClick_Copy = useCallback(
-    () => {
+    (event, mode, structure) => {
       
       const size = itemCurrent.getIn(['size']);
       const listColorAll = itemCurrent.getIn(['listColorAll']);
+      let result = '';
       
-      let listColorHex = new Array(size).fill('');
-      
-      for (var iColor=0; iColor < size; iColor++){
+      if (mode === 'hex') {
+        let listColorHex = new Array(size).fill('');
         
-        const color = listColorAll.getIn([iColor]);
-        const hexR = color.getIn(['rgb', 'r']).toString(16);
-        const hexG = color.getIn(['rgb', 'g']).toString(16);
-        const hexB = color.getIn(['rgb', 'b']).toString(16);
+        for (var iColor=0; iColor < size; iColor++){
+          
+          const color = listColorAll.getIn([iColor]);
+          let hexR = color.getIn(['rgb', 'r']).toString(16);
+          if (hexR.length < 2) {
+            hexR = "0" + hexR;
+          }
+          let hexG = color.getIn(['rgb', 'g']).toString(16);
+          if (hexG.length < 2) {
+            hexG = "0" + hexG;
+          }
+          let hexB = color.getIn(['rgb', 'b']).toString(16);
+          if (hexB.length < 2) {
+            hexB = "0" + hexB;
+          }
+          
+          const strHexRGB = `'#${hexR}${hexG}${hexB}'`;
+          
+          listColorHex[iColor] = strHexRGB;
+        }
         
-        const hexRGB = `#${hexR}${hexG}${hexB}`;
+        //console.log(listColorHex);
         
-        listColorHex[iColor] = hexRGB;
+        if (structure==='list'){ 
+          result = `[ ${listColorHex.join(', ')} ]`;
+        }
+        else if (structure==='object'){ 
+          result = `{
+            '00': '${listColorHex[20]}',
+            '05': '${listColorHex[19]}',
+            '10': '${listColorHex[18]}',
+            '15': '${listColorHex[17]}',
+            '20': '${listColorHex[16]}',
+            '25': '${listColorHex[15]}',
+            '30': '${listColorHex[14]}',
+            '35': '${listColorHex[13]}',
+            '40': '${listColorHex[12]}',
+            '45': '${listColorHex[11]}',
+            '50': '${listColorHex[10]}',
+            '55': '${listColorHex[9]}',
+            '60': '${listColorHex[8]}',
+            '65': '${listColorHex[7]}',
+            '70': '${listColorHex[6]}',
+            '75': '${listColorHex[5]}',
+            '80': '${listColorHex[4]}',
+            '85': '${listColorHex[3]}',
+            '90': '${listColorHex[2]}',
+            '95': '${listColorHex[1]}',
+            '100': '${listColorHex[0]}'
+          }`
+        }
+        
+      }
+      else if (mode === 'hsl') {
+        let listColorHsl = new Array(size).fill('');
+        
+        for (var iColor=0; iColor < size; iColor++){
+          
+          const color = listColorAll.getIn([iColor]);
+          
+          let hue = (Math.round(color.getIn(['hsl', 'h']))).toString();
+          let saturation = (Math.round(color.getIn(['hsl', 's']))).toString() + '%';
+          let lightness = (Math.round(color.getIn(['hsl', 'l']))).toString() + '%';
+          
+          
+          const strHsl = `hsl(${hue},${saturation},${lightness})`;
+          
+          listColorHsl[iColor] = strHsl;
+        }
+        
+        //console.log(listColorHsl);
+        
+        if (structure==='list'){
+          result = `[ ${listColorHsl.join(', ')} ]`;
+        }
+        else if (structure==='object'){
+          result = `{
+            '00': '${listColorHsl[20]}',
+            '05': '${listColorHsl[19]}',
+            '10': '${listColorHsl[18]}',
+            '15': '${listColorHsl[17]}',
+            '20': '${listColorHsl[16]}',
+            '25': '${listColorHsl[15]}',
+            '30': '${listColorHsl[14]}',
+            '35': '${listColorHsl[13]}',
+            '40': '${listColorHsl[12]}',
+            '45': '${listColorHsl[11]}',
+            '50': '${listColorHsl[10]}',
+            '55': '${listColorHsl[9]}',
+            '60': '${listColorHsl[8]}',
+            '65': '${listColorHsl[7]}',
+            '70': '${listColorHsl[6]}',
+            '75': '${listColorHsl[5]}',
+            '80': '${listColorHsl[4]}',
+            '85': '${listColorHsl[3]}',
+            '90': '${listColorHsl[2]}',
+            '95': '${listColorHsl[1]}',
+            '100': '${listColorHsl[0]}'
+          }`
+        }
       }
       
-      console.log(listColorHex);
-      const result = `[ ${listColorHex.join(', ')} ]`;
       
       copyToClipboard( result );
     },
@@ -150,9 +240,11 @@ function ColorSeries({
         <Div_Main_Left> 
         
           <button
-            onClick={event=>onClick_Copy(event)}
-          > copy </button>
-          <button> save </button>
+            onClick={event=>onClick_Copy(event, 'hsl', 'list')}
+          > copy list </button>
+          <button
+            onClick={event=>onClick_Copy(event, 'hsl', 'object')}
+          > copy obj </button>
           <button> list </button>
         </Div_Main_Left>
         

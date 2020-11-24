@@ -7,6 +7,9 @@ import colorlab from 'colorlab';
 
 const calculateOne = (listHslPrevious, listHslStart, listHslEnd, indexAll, size) => {
 	
+	console.log(listHslStart)
+	console.log(listHslEnd)
+	
 	let listColorTesting = [];
     
   const colorPrevious_acColors = new acColors({"color":listHslPrevious, "type":"hsl"}); 
@@ -21,13 +24,19 @@ const calculateOne = (listHslPrevious, listHslStart, listHslEnd, indexAll, size)
   const listLabEnd = colorEnd_acColors.lab; 
   const colorEnd_colorLab = new colorlab.CIELAB(...listLabEnd);
   
+   
+  const gapAllSaturation = Math.abs(listHslStart[1] - listHslEnd[1]);
+  const changeMaxSaturation = Math.round(gapAllSaturation * 2 / (size-1) );
   
-  for (var changeSaturation = -20; changeSaturation <= 20; changeSaturation++){
+  const gapAllLightness = Math.abs(listHslStart[2] - listHslEnd[2]);
+  const changeMaxLightness = Math.round(gapAllLightness * 2 / (size-1));
+  
+  for (var changeSaturation = -changeMaxSaturation; changeSaturation <= changeMaxSaturation; changeSaturation+=1){
     if ( (listHslPrevious[1]+changeSaturation) > 100 || (listHslPrevious[1]+changeSaturation) < 0) {
       continue;
     }
     
-    for (var changeLightness = 0; changeLightness >= -20; changeLightness--){
+    for (var changeLightness = 0; changeLightness >= -changeMaxLightness; changeLightness-=1){
       if ( (listHslPrevious[2]+changeLightness) > 100 || (listHslPrevious[2]+changeLightness) < 0) {
         continue;
       }
@@ -85,8 +94,8 @@ const calculateOne = (listHslPrevious, listHslStart, listHslEnd, indexAll, size)
   const colorClosest = listColorTesting.reduce(function(colorPrevious, colorCurrent) {
     
     const errorPrevious = 
-      Math.pow((colorPrevious.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
-      Math.pow((colorPrevious.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
+      3 * Math.pow((colorPrevious.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
+      3 * Math.pow((colorPrevious.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
       
       Math.pow((colorPrevious.contrast_Testing_Start - contrastGoal_Testing_Start)/contrastGoal_Testing_Start, 2) + 
       Math.pow((colorPrevious.difference_Testing_Start - differenceGoal_Testing_Start)/differenceGoal_Testing_Start, 2) +
@@ -97,8 +106,8 @@ const calculateOne = (listHslPrevious, listHslStart, listHslEnd, indexAll, size)
       
       
     const errorCurrent = 
-      Math.pow((colorCurrent.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
-      Math.pow((colorCurrent.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
+      3 * Math.pow((colorCurrent.contrast_Testing_Previous - contrastGoal_Testing_Previous)/contrastGoal_Testing_Previous, 2) + 
+      3 * Math.pow((colorCurrent.difference_Testing_Previous - differenceGoal_Testing_Previous)/differenceGoal_Testing_Previous, 2) +
       
       Math.pow((colorCurrent.contrast_Testing_Start - contrastGoal_Testing_Start)/contrastGoal_Testing_Start, 2) + 
       Math.pow((colorCurrent.difference_Testing_Start - differenceGoal_Testing_Start)/differenceGoal_Testing_Start, 2) +
